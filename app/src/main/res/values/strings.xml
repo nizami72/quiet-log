@@ -53,8 +53,10 @@
     <string name="nav_settings">Настройки</string>
 
     <!-- Home -->
-    <string name="home_weekly_summary_placeholder">Сводка за неделю появится здесь</string>
     <string name="attack_now">Приступ сейчас</string>
+    <string name="home_week_summary_title">Эта неделя</string>
+    <string name="home_week_summary_none">На этой неделе приступов не было</string>
+    <string name="home_week_attack_count_label">Приступов за неделю</string>
 
     <!-- Medication selector -->
     <string name="medication_list_empty">Список медикаментов пуст — добавьте в Настройки → Медикаменты</string>

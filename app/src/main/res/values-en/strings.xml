@@ -53,8 +53,10 @@
     <string name="nav_settings">Settings</string>
 
     <!-- Home -->
-    <string name="home_weekly_summary_placeholder">Your weekly summary will appear here</string>
     <string name="attack_now">Log attack</string>
+    <string name="home_week_summary_title">This week</string>
+    <string name="home_week_summary_none">No attacks logged this week</string>
+    <string name="home_week_attack_count_label">Attacks this week</string>
 
     <!-- Medication selector -->
     <string name="medication_list_empty">Your medication list is empty — add some in Settings → Medications</string>
