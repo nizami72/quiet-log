@@ -1,6 +1,6 @@
-package com.quietlog.app.ui.screens.history
+package com.quietlog.app.ui
 
-data class HistoryChartPoint(
+data class StatsBucket(
     val label: String,
     val count: Int,
     val avgIntensity: Float,

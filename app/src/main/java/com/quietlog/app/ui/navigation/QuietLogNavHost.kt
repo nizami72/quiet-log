@@ -80,7 +80,9 @@ fun QuietLogNavHost(
             )
         }
 
-        composable(Destination.Insights.route) { InsightsScreen() }
+        composable(Destination.Insights.route) {
+            InsightsScreen(onNavigateToPremium = { navController.navigate(Destination.Premium.route) })
+        }
         composable(Destination.Medications.route) { MedicationsScreen() }
 
         composable(Destination.Settings.route) {

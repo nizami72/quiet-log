@@ -1,9 +1,9 @@
-package com.quietlog.app.ui.screens.history
+package com.quietlog.app.ui
 
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
-enum class HistoryPeriod(val label: String) {
+enum class StatsPeriod(val label: String) {
     WEEK("Неделя"),
     MONTH("Месяц"),
     THREE_MONTHS("3 месяца"),

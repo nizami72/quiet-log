@@ -2,6 +2,7 @@ package com.quietlog.app.di
 
 import android.content.Context
 import androidx.room.Room
+import com.quietlog.app.data.local.MIGRATION_1_2
 import com.quietlog.app.data.local.QuietLogDatabase
 import com.quietlog.app.data.local.dao.AttackDao
 import com.quietlog.app.data.local.dao.MedicationDao
@@ -19,7 +20,9 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideDatabase(@ApplicationContext context: Context): QuietLogDatabase =
-        Room.databaseBuilder(context, QuietLogDatabase::class.java, "quietlog.db").build()
+        Room.databaseBuilder(context, QuietLogDatabase::class.java, "quietlog.db")
+            .addMigrations(MIGRATION_1_2)
+            .build()
 
     @Provides
     fun provideAttackDao(database: QuietLogDatabase): AttackDao = database.attackDao()

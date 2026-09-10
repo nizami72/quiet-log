@@ -15,7 +15,7 @@ import com.quietlog.app.data.local.entity.MedicationEntity
         MedicationEntity::class,
         AttackMedicationCrossRef::class,
     ],
-    version = 1,
+    version = 2,
     exportSchema = true,
 )
 @TypeConverters(Converters::class)

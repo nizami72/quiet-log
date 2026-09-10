@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.quietlog.app.data.local.entity.AttackEntity
 import com.quietlog.app.data.repository.AttackRepository
+import com.quietlog.app.ui.StatsBucket
+import com.quietlog.app.ui.StatsPeriod
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.time.DayOfWeek
 import java.time.Instant
@@ -29,7 +31,7 @@ class HistoryViewModel @Inject constructor(
     attackRepository: AttackRepository,
 ) : ViewModel() {
 
-    private val selectedPeriod = MutableStateFlow(HistoryPeriod.MONTH)
+    private val selectedPeriod = MutableStateFlow(StatsPeriod.MONTH)
 
     val uiState: StateFlow<HistoryUiState> = combine(
         attackRepository.observeAttacks(),
@@ -51,17 +53,17 @@ class HistoryViewModel @Inject constructor(
         initialValue = HistoryUiState(),
     )
 
-    fun selectPeriod(period: HistoryPeriod) {
+    fun selectPeriod(period: StatsPeriod) {
         selectedPeriod.value = period
     }
 
-    private fun buildChartPoints(attacks: List<AttackEntity>, byMonth: Boolean): List<HistoryChartPoint> {
+    private fun buildChartPoints(attacks: List<AttackEntity>, byMonth: Boolean): List<StatsBucket> {
         return attacks
             .groupBy { bucketStart(it.timestampStart, byMonth) }
             .entries
             .sortedBy { it.key.toEpochDay() }
             .map { (bucketStart, bucketAttacks) ->
-                HistoryChartPoint(
+                StatsBucket(
                     label = bucketStart.format(if (byMonth) MONTH_LABEL_FORMATTER else WEEK_LABEL_FORMATTER),
                     count = bucketAttacks.size,
                     avgIntensity = bucketAttacks.map { it.intensity }.average().toFloat(),

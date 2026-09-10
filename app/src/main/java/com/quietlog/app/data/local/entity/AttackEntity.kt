@@ -13,4 +13,5 @@ data class AttackEntity(
     val symptoms: List<String> = emptyList(),
     val triggers: List<String> = emptyList(),
     val note: String? = null,
+    val pressureHpa: Float? = null,
 )

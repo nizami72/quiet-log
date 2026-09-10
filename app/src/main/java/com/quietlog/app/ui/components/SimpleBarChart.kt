@@ -17,11 +17,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.quietlog.app.ui.screens.history.HistoryChartPoint
+import com.quietlog.app.ui.StatsBucket
 
 @Composable
 fun SimpleBarChart(
-    points: List<HistoryChartPoint>,
+    points: List<StatsBucket>,
     modifier: Modifier = Modifier,
     barAreaHeight: Dp = 120.dp,
 ) {

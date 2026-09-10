@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.quietlog.app.data.local.entity.AttackEntity
+import com.quietlog.app.ui.StatsPeriod
 import com.quietlog.app.ui.components.SimpleBarChart
 import java.time.Instant
 import java.time.ZoneId
@@ -51,11 +52,11 @@ fun HistoryScreen(
                     .fillMaxWidth()
                     .padding(16.dp),
             ) {
-                HistoryPeriod.entries.forEachIndexed { index, period ->
+                StatsPeriod.entries.forEachIndexed { index, period ->
                     SegmentedButton(
                         selected = uiState.period == period,
                         onClick = { viewModel.selectPeriod(period) },
-                        shape = SegmentedButtonDefaults.itemShape(index, HistoryPeriod.entries.size),
+                        shape = SegmentedButtonDefaults.itemShape(index, StatsPeriod.entries.size),
                     ) {
                         Text(period.label)
                     }
