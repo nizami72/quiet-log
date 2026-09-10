@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.quietlog.app.data.repository.AttackRepository
+import com.quietlog.app.data.repository.MedicationRepository
 import com.quietlog.app.ui.navigation.Destination
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,6 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AttackRecordViewModel @Inject constructor(
     private val attackRepository: AttackRepository,
+    private val medicationRepository: MedicationRepository,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -38,6 +40,13 @@ class AttackRecordViewModel @Inject constructor(
                     )
                 }
             }
+            val selectedMedicationIds = attackRepository.getMedicationIdsForAttack(attackId).toSet()
+            _uiState.update { it.copy(selectedMedicationIds = selectedMedicationIds) }
+        }
+        viewModelScope.launch {
+            medicationRepository.observeMedications().collect { medications ->
+                _uiState.update { it.copy(medications = medications) }
+            }
         }
     }
 
@@ -57,6 +66,10 @@ class AttackRecordViewModel @Inject constructor(
         _uiState.update { it.copy(triggers = it.triggers.toggled(trigger)) }
     }
 
+    fun toggleMedication(medicationId: Long) {
+        _uiState.update { it.copy(selectedMedicationIds = it.selectedMedicationIds.toggled(medicationId)) }
+    }
+
     fun updateNote(note: String) {
         _uiState.update { it.copy(note = note) }
     }
@@ -74,6 +87,7 @@ class AttackRecordViewModel @Inject constructor(
                     note = state.note.ifBlank { null },
                 ),
             )
+            attackRepository.setMedicationsForAttack(attackId, state.selectedMedicationIds.toList())
             onSaved()
         }
     }
@@ -86,6 +100,6 @@ class AttackRecordViewModel @Inject constructor(
         }
     }
 
-    private fun Set<String>.toggled(value: String): Set<String> =
+    private fun <T> Set<T>.toggled(value: T): Set<T> =
         if (value in this) this - value else this + value
 }

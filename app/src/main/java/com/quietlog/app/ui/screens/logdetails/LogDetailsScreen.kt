@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.quietlog.app.ui.AttackFieldOptions
+import com.quietlog.app.ui.components.MedicationSelector
 import com.quietlog.app.ui.components.SelectableChipGroup
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -74,6 +75,15 @@ fun LogDetailsScreen(
                     options = AttackFieldOptions.TRIGGER_OPTIONS,
                     selected = uiState.triggers,
                     onToggle = viewModel::toggleTrigger,
+                )
+            }
+
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text("Медикаменты", style = MaterialTheme.typography.titleMedium)
+                MedicationSelector(
+                    medications = uiState.medications,
+                    selectedIds = uiState.selectedMedicationIds,
+                    onToggle = viewModel::toggleMedication,
                 )
             }
 

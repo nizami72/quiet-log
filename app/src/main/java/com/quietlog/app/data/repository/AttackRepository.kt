@@ -10,6 +10,8 @@ interface AttackRepository {
     suspend fun getAttack(id: Long): AttackEntity?
     suspend fun saveAttack(attack: AttackEntity): Long
     suspend fun deleteAttack(attack: AttackEntity)
+    suspend fun getMedicationIdsForAttack(attackId: Long): List<Long>
+    suspend fun setMedicationsForAttack(attackId: Long, medicationIds: List<Long>)
 }
 
 class AttackRepositoryImpl @Inject constructor(
@@ -28,4 +30,10 @@ class AttackRepositoryImpl @Inject constructor(
     }
 
     override suspend fun deleteAttack(attack: AttackEntity) = dao.delete(attack)
+
+    override suspend fun getMedicationIdsForAttack(attackId: Long): List<Long> =
+        dao.getMedicationIdsForAttack(attackId)
+
+    override suspend fun setMedicationsForAttack(attackId: Long, medicationIds: List<Long>) =
+        dao.setMedicationsForAttack(attackId, medicationIds)
 }

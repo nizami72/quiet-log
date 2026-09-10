@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.quietlog.app.ui.AttackFieldOptions
 import com.quietlog.app.ui.components.IntensityPicker
+import com.quietlog.app.ui.components.MedicationSelector
 import com.quietlog.app.ui.components.SelectableChipGroup
 import java.time.Instant
 import java.time.ZoneId
@@ -108,6 +109,15 @@ fun AttackRecordScreen(
                     options = AttackFieldOptions.TRIGGER_OPTIONS,
                     selected = uiState.triggers,
                     onToggle = viewModel::toggleTrigger,
+                )
+            }
+
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text("Медикаменты", style = MaterialTheme.typography.titleMedium)
+                MedicationSelector(
+                    medications = uiState.medications,
+                    selectedIds = uiState.selectedMedicationIds,
+                    onToggle = viewModel::toggleMedication,
                 )
             }
 
