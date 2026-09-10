@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.Medication
 import androidx.compose.material.icons.filled.WorkspacePremium
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -21,6 +22,7 @@ import androidx.compose.ui.Modifier
 fun SettingsScreen(
     onNavigateToMedications: () -> Unit,
     onNavigateToPremium: () -> Unit,
+    onNavigateToPdfReport: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -34,6 +36,13 @@ fun SettingsScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable(onClick = onNavigateToMedications),
+            )
+            ListItem(
+                headlineContent = { Text("Отчёт для врача") },
+                leadingContent = { Icon(Icons.Filled.Description, contentDescription = null) },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable(onClick = onNavigateToPdfReport),
             )
             ListItem(
                 headlineContent = { Text("QuietLog Premium") },

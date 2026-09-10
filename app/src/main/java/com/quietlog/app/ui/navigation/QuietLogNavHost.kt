@@ -89,10 +89,14 @@ fun QuietLogNavHost(
             SettingsScreen(
                 onNavigateToMedications = { navController.navigate(Destination.Medications.route) },
                 onNavigateToPremium = { navController.navigate(Destination.Premium.route) },
+                onNavigateToPdfReport = { navController.navigate(Destination.PdfReport.route) },
             )
         }
 
         composable(Destination.Premium.route) { PremiumScreen() }
-        composable(Destination.PdfReport.route) { PdfReportScreen() }
+
+        composable(Destination.PdfReport.route) {
+            PdfReportScreen(onNavigateToPremium = { navController.navigate(Destination.Premium.route) })
+        }
     }
 }
