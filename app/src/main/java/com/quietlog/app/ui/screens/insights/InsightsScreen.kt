@@ -26,33 +26,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.quietlog.app.ui.PREMIUM_FEATURES
+import com.quietlog.app.ui.PremiumFeature
 import com.quietlog.app.ui.StatsPeriod
 import com.quietlog.app.ui.components.SimpleBarChart
-
-private data class PremiumTeaser(val title: String, val description: String)
-
-private val PREMIUM_TEASERS = listOf(
-    PremiumTeaser(
-        "Расширенный анализ триггеров",
-        "Автоматический подсчёт корреляции по каждому триггеру, а не просто список",
-    ),
-    PremiumTeaser(
-        "Эффективность медикаментов",
-        "Сравнение препаратов по среднему снижению интенсивности боли",
-    ),
-    PremiumTeaser(
-        "Корреляция с циклом",
-        "Если включён модуль отслеживания гормонального цикла",
-    ),
-    PremiumTeaser(
-        "PDF-отчёт для врача",
-        "Список приступов, интенсивность, симптомы, медикаменты и график за период",
-    ),
-    PremiumTeaser(
-        "Расширенные тренды",
-        "День недели, время суток, сезонность",
-    ),
-)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -117,8 +94,8 @@ fun InsightsScreen(
 
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text("QuietLog Premium", style = MaterialTheme.typography.titleMedium)
-                PREMIUM_TEASERS.forEach { teaser ->
-                    PremiumTeaserCard(teaser = teaser, onClick = onNavigateToPremium)
+                PREMIUM_FEATURES.forEach { feature ->
+                    PremiumTeaserCard(feature = feature, onClick = onNavigateToPremium)
                 }
             }
         }
@@ -150,7 +127,7 @@ private fun TagFrequencyList(title: String, tags: List<Pair<String, Int>>) {
 }
 
 @Composable
-private fun PremiumTeaserCard(teaser: PremiumTeaser, onClick: () -> Unit) {
+private fun PremiumTeaserCard(feature: PremiumFeature, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -162,8 +139,8 @@ private fun PremiumTeaserCard(teaser: PremiumTeaser, onClick: () -> Unit) {
         ) {
             Icon(Icons.Filled.Lock, contentDescription = null)
             Column {
-                Text(teaser.title, style = MaterialTheme.typography.titleMedium)
-                Text(teaser.description, style = MaterialTheme.typography.bodyLarge)
+                Text(feature.title, style = MaterialTheme.typography.titleMedium)
+                Text(feature.description, style = MaterialTheme.typography.bodyLarge)
             }
         }
     }

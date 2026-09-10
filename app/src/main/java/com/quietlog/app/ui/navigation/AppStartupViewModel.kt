@@ -2,6 +2,7 @@ package com.quietlog.app.ui.navigation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.quietlog.app.data.billing.BillingRepository
 import com.quietlog.app.settings.UserSettingsDataStore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -12,6 +13,9 @@ import javax.inject.Inject
 @HiltViewModel
 class AppStartupViewModel @Inject constructor(
     dataStore: UserSettingsDataStore,
+    // Injected (unused directly) so the Hilt singleton is created and its billing
+    // connection + purchase restore starts as early as the app launches.
+    billingRepository: BillingRepository,
 ) : ViewModel() {
 
     /** null while the flag is still loading from DataStore. */
