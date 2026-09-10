@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.quietlog.app.ui.navigation.QuietLogNavHost
+import com.quietlog.app.ui.navigation.QuietLogApp
 import com.quietlog.app.ui.theme.QuietLogTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
-                    QuietLogNavHost()
+                    QuietLogApp()
                 }
             }
         }

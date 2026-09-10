@@ -12,6 +12,9 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -22,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.quietlog.app.data.local.entity.AttackEntity
+import com.quietlog.app.ui.components.SimpleBarChart
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -35,33 +39,56 @@ fun HistoryScreen(
     modifier: Modifier = Modifier,
     viewModel: HistoryViewModel = hiltViewModel(),
 ) {
-    val attacks by viewModel.attacks.collectAsState()
+    val uiState by viewModel.uiState.collectAsState()
 
     Scaffold(
         modifier = modifier,
         topBar = { TopAppBar(title = { Text("История приступов") }) },
     ) { padding ->
-        if (attacks.isEmpty()) {
-            Column(
+        Column(modifier = Modifier.padding(padding)) {
+            SingleChoiceSegmentedButtonRow(
                 modifier = Modifier
-                    .padding(padding)
-                    .fillMaxSize()
-                    .padding(24.dp),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Text("Записей пока нет")
-            }
-        } else {
-            LazyColumn(
-                modifier = Modifier
-                    .padding(padding)
-                    .fillMaxSize()
+                    .fillMaxWidth()
                     .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                items(attacks, key = AttackEntity::id) { attack ->
-                    AttackRow(attack = attack, onClick = { onOpenAttack(attack.id) })
+                HistoryPeriod.entries.forEachIndexed { index, period ->
+                    SegmentedButton(
+                        selected = uiState.period == period,
+                        onClick = { viewModel.selectPeriod(period) },
+                        shape = SegmentedButtonDefaults.itemShape(index, HistoryPeriod.entries.size),
+                    ) {
+                        Text(period.label)
+                    }
+                }
+            }
+
+            if (uiState.chartPoints.isNotEmpty()) {
+                SimpleBarChart(
+                    points = uiState.chartPoints,
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                )
+            }
+
+            if (uiState.attacks.isEmpty()) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(24.dp),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    Text("Записей за этот период нет")
+                }
+            } else {
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    items(uiState.attacks, key = AttackEntity::id) { attack ->
+                        AttackRow(attack = attack, onClick = { onOpenAttack(attack.id) })
+                    }
                 }
             }
         }

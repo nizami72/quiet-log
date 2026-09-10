@@ -1,6 +1,7 @@
 package com.quietlog.app.ui.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -20,8 +21,15 @@ import com.quietlog.app.ui.screens.quicklog.QuickLogScreen
 import com.quietlog.app.ui.screens.settings.SettingsScreen
 
 @Composable
-fun QuietLogNavHost(navController: NavHostController = rememberNavController()) {
-    NavHost(navController = navController, startDestination = Destination.Home.route) {
+fun QuietLogNavHost(
+    navController: NavHostController = rememberNavController(),
+    modifier: Modifier = Modifier,
+) {
+    NavHost(
+        navController = navController,
+        startDestination = Destination.Home.route,
+        modifier = modifier,
+    ) {
         composable(Destination.Onboarding.route) { OnboardingScreen() }
 
         composable(Destination.Home.route) {
@@ -63,7 +71,14 @@ fun QuietLogNavHost(navController: NavHostController = rememberNavController()) 
 
         composable(Destination.Insights.route) { InsightsScreen() }
         composable(Destination.Medications.route) { MedicationsScreen() }
-        composable(Destination.Settings.route) { SettingsScreen() }
+
+        composable(Destination.Settings.route) {
+            SettingsScreen(
+                onNavigateToMedications = { navController.navigate(Destination.Medications.route) },
+                onNavigateToPremium = { navController.navigate(Destination.Premium.route) },
+            )
+        }
+
         composable(Destination.Premium.route) { PremiumScreen() }
         composable(Destination.PdfReport.route) { PdfReportScreen() }
     }
