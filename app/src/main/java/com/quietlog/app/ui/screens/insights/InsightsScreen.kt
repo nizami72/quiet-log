@@ -3,6 +3,7 @@ package com.quietlog.app.ui.screens.insights
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -92,7 +93,7 @@ fun InsightsScreen(
                 labelFor = { key -> Trigger.fromKey(key)?.let { stringResource(it.labelRes) } ?: key },
             )
 
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            SectionCard {
                 Text(stringResource(R.string.insights_pressure_correlation_title), style = MaterialTheme.typography.titleMedium)
                 if (uiState.pressureBuckets.isEmpty()) {
                     Text(
@@ -120,7 +121,7 @@ fun InsightsScreen(
 
 @Composable
 private fun PremiumAnalyticsSection(uiState: InsightsUiState) {
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    SectionCard {
         Text(stringResource(R.string.insights_trigger_correlation_title), style = MaterialTheme.typography.titleMedium)
         Text(stringResource(R.string.insights_trigger_correlation_subtitle), style = MaterialTheme.typography.bodyMedium)
         if (uiState.triggerCorrelations.isEmpty()) {
@@ -133,7 +134,7 @@ private fun PremiumAnalyticsSection(uiState: InsightsUiState) {
         }
     }
 
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    SectionCard {
         Text(stringResource(R.string.premium_feature_medication_effectiveness_title), style = MaterialTheme.typography.titleMedium)
         Text(stringResource(R.string.insights_medication_effectiveness_subtitle), style = MaterialTheme.typography.bodyMedium)
         if (uiState.medicationStats.isEmpty()) {
@@ -148,7 +149,7 @@ private fun PremiumAnalyticsSection(uiState: InsightsUiState) {
         }
     }
 
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    SectionCard {
         Text(stringResource(R.string.insights_weekday_trend_title), style = MaterialTheme.typography.titleMedium)
         if (uiState.weekdayTrends.isEmpty()) {
             Text(stringResource(R.string.insights_no_data), style = MaterialTheme.typography.bodyLarge)
@@ -157,7 +158,7 @@ private fun PremiumAnalyticsSection(uiState: InsightsUiState) {
         }
     }
 
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    SectionCard {
         Text(stringResource(R.string.insights_daypart_trend_title), style = MaterialTheme.typography.titleMedium)
         if (uiState.dayPartTrends.isEmpty()) {
             Text(stringResource(R.string.insights_no_data), style = MaterialTheme.typography.bodyLarge)
@@ -166,7 +167,7 @@ private fun PremiumAnalyticsSection(uiState: InsightsUiState) {
         }
     }
 
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    SectionCard {
         Text(stringResource(R.string.insights_season_trend_title), style = MaterialTheme.typography.titleMedium)
         if (uiState.seasonTrends.isEmpty()) {
             Text(stringResource(R.string.insights_no_data), style = MaterialTheme.typography.bodyLarge)
@@ -192,7 +193,7 @@ private fun TagFrequencyList(
     tags: List<Pair<String, Int>>,
     labelFor: @Composable (String) -> String,
 ) {
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    SectionCard {
         Text(title, style = MaterialTheme.typography.titleMedium)
         if (tags.isEmpty()) {
             Text(stringResource(R.string.insights_no_data_for_period), style = MaterialTheme.typography.bodyLarge)
@@ -204,6 +205,19 @@ private fun TagFrequencyList(
                 )
             }
         }
+    }
+}
+
+/** Consistent card wrapper for each Insights section — gives sections a visible boundary
+ * instead of relying on whitespace alone, matching StatCard/PremiumTeaserCard's styling. */
+@Composable
+private fun SectionCard(modifier: Modifier = Modifier, content: @Composable ColumnScope.() -> Unit) {
+    Card(modifier = modifier.fillMaxWidth()) {
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            content = content,
+        )
     }
 }
 
