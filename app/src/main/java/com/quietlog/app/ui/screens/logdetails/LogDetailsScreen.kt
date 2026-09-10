@@ -20,6 +20,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.quietlog.app.ui.AttackFieldOptions
 import com.quietlog.app.ui.components.SelectableChipGroup
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -52,7 +53,7 @@ fun LogDetailsScreen(
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text("Локализация боли", style = MaterialTheme.typography.titleMedium)
                 SelectableChipGroup(
-                    options = LogDetailsUiState.LOCATION_ZONE_OPTIONS,
+                    options = AttackFieldOptions.LOCATION_ZONE_OPTIONS,
                     selected = uiState.locationZones,
                     onToggle = viewModel::toggleLocationZone,
                 )
@@ -61,7 +62,7 @@ fun LogDetailsScreen(
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text("Симптомы", style = MaterialTheme.typography.titleMedium)
                 SelectableChipGroup(
-                    options = LogDetailsUiState.SYMPTOM_OPTIONS,
+                    options = AttackFieldOptions.SYMPTOM_OPTIONS,
                     selected = uiState.symptoms,
                     onToggle = viewModel::toggleSymptom,
                 )
@@ -70,7 +71,7 @@ fun LogDetailsScreen(
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text("Возможные триггеры", style = MaterialTheme.typography.titleMedium)
                 SelectableChipGroup(
-                    options = LogDetailsUiState.TRIGGER_OPTIONS,
+                    options = AttackFieldOptions.TRIGGER_OPTIONS,
                     selected = uiState.triggers,
                     onToggle = viewModel::toggleTrigger,
                 )

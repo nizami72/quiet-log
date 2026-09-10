@@ -64,9 +64,11 @@ fun QuietLogNavHost(
         composable(
             route = Destination.AttackRecord.route,
             arguments = listOf(navArgument(Destination.AttackRecord.ARG_ATTACK_ID) { type = NavType.LongType }),
-        ) { backStackEntry ->
-            val attackId = backStackEntry.arguments?.getLong(Destination.AttackRecord.ARG_ATTACK_ID) ?: 0L
-            AttackRecordScreen(attackId = attackId)
+        ) {
+            AttackRecordScreen(
+                onSaved = { navController.popBackStack() },
+                onDeleted = { navController.popBackStack() },
+            )
         }
 
         composable(Destination.Insights.route) { InsightsScreen() }
