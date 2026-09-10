@@ -34,7 +34,9 @@ fun SimpleBarChart(
         points.forEach { point ->
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.padding(horizontal = 4.dp),
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(horizontal = 4.dp),
             ) {
                 Text(
                     text = "%.1f".format(point.avgIntensity),
