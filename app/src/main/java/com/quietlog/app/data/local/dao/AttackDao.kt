@@ -31,6 +31,9 @@ interface AttackDao {
     @Query("SELECT medicationId FROM attack_medication_cross_ref WHERE attackId = :attackId")
     suspend fun getMedicationIdsForAttack(attackId: Long): List<Long>
 
+    @Query("SELECT * FROM attack_medication_cross_ref")
+    fun observeAllCrossRefs(): Flow<List<AttackMedicationCrossRef>>
+
     @Query("DELETE FROM attack_medication_cross_ref WHERE attackId = :attackId")
     suspend fun clearMedicationCrossRefs(attackId: Long)
 

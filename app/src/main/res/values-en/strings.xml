@@ -83,6 +83,26 @@
     <string name="insights_pressure_correlation_title">Pressure ↔ attack frequency</string>
     <string name="insights_pressure_correlation_empty">Not enough barometer readings yet — data will appear as you log attacks on a device with a pressure sensor.</string>
     <string name="format_tag_count">%1$s — %2$d</string>
+    <string name="insights_no_data">Not enough data yet</string>
+
+    <!-- Insights — premium analytics -->
+    <string name="insights_trigger_correlation_title">Trigger correlation</string>
+    <string name="insights_trigger_correlation_subtitle">Share of severe attacks (intensity 7+) among attacks with this trigger</string>
+    <string name="format_trigger_correlation">%1$s — in %2$d%% of severe attacks</string>
+    <string name="insights_medication_effectiveness_subtitle">Average intensity of attacks logged with this medication — based on your records, not a clinical measurement</string>
+    <string name="format_medication_stat">%1$s/10 (%2$d)</string>
+    <string name="insights_weekday_trend_title">Attacks by day of week</string>
+    <string name="insights_daypart_trend_title">Attacks by time of day</string>
+    <string name="insights_season_trend_title">Attacks by season</string>
+
+    <string name="daypart_night">Night</string>
+    <string name="daypart_morning">Morning</string>
+    <string name="daypart_afternoon">Afternoon</string>
+    <string name="daypart_evening">Evening</string>
+    <string name="season_winter">Winter</string>
+    <string name="season_spring">Spring</string>
+    <string name="season_summer">Summer</string>
+    <string name="season_autumn">Autumn</string>
 
     <!-- Medications list -->
     <string name="medications_empty">Your medication list is empty</string>

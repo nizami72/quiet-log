@@ -83,6 +83,26 @@
     <string name="insights_pressure_correlation_title">Давление ↔ частота приступов</string>
     <string name="insights_pressure_correlation_empty">Пока недостаточно записей с показанием барометра — данные появятся по мере логирования приступов на устройстве с датчиком давления.</string>
     <string name="format_tag_count">%1$s — %2$d</string>
+    <string name="insights_no_data">Пока недостаточно данных</string>
+
+    <!-- Insights — premium analytics -->
+    <string name="insights_trigger_correlation_title">Корреляция триггеров</string>
+    <string name="insights_trigger_correlation_subtitle">Доля тяжёлых приступов (интенсивность 7+) среди приступов с этим триггером</string>
+    <string name="format_trigger_correlation">%1$s — в %2$d%% тяжёлых приступов</string>
+    <string name="insights_medication_effectiveness_subtitle">Средняя интенсивность приступов, когда принимался препарат, — по вашим записям, не клиническое измерение</string>
+    <string name="format_medication_stat">%1$s/10 (%2$d)</string>
+    <string name="insights_weekday_trend_title">Приступы по дням недели</string>
+    <string name="insights_daypart_trend_title">Приступы по времени суток</string>
+    <string name="insights_season_trend_title">Приступы по сезону</string>
+
+    <string name="daypart_night">Ночь</string>
+    <string name="daypart_morning">Утро</string>
+    <string name="daypart_afternoon">День</string>
+    <string name="daypart_evening">Вечер</string>
+    <string name="season_winter">Зима</string>
+    <string name="season_spring">Весна</string>
+    <string name="season_summer">Лето</string>
+    <string name="season_autumn">Осень</string>
 
     <!-- Medications list -->
     <string name="medications_empty">Список препаратов пуст</string>

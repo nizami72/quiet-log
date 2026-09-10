@@ -4,8 +4,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.quietlog.app.data.local.entity.AttackEntity
 import com.quietlog.app.data.repository.AttackRepository
+import com.quietlog.app.data.repository.MedicationRepository
+import com.quietlog.app.data.repository.SettingsRepository
 import com.quietlog.app.ui.StatsBucket
 import com.quietlog.app.ui.StatsPeriod
+import com.quietlog.app.ui.buildDayPartTrends
+import com.quietlog.app.ui.buildMedicationStats
+import com.quietlog.app.ui.buildSeasonTrends
+import com.quietlog.app.ui.buildTriggerCorrelations
+import com.quietlog.app.ui.buildWeekdayTrends
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlin.math.floor
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,6 +27,8 @@ private const val PRESSURE_BUCKET_SIZE_HPA = 5
 @HiltViewModel
 class InsightsViewModel @Inject constructor(
     attackRepository: AttackRepository,
+    medicationRepository: MedicationRepository,
+    settingsRepository: SettingsRepository,
 ) : ViewModel() {
 
     private val selectedPeriod = MutableStateFlow(StatsPeriod.MONTH)
@@ -27,7 +36,10 @@ class InsightsViewModel @Inject constructor(
     val uiState: StateFlow<InsightsUiState> = combine(
         attackRepository.observeAttacks(),
         selectedPeriod,
-    ) { attacks, period ->
+        settingsRepository.settings,
+        medicationRepository.observeMedications(),
+        attackRepository.observeAllCrossRefs(),
+    ) { attacks, period, settings, medications, crossRefs ->
         val boundary = period.startMillis()
         val filtered = attacks.filter { boundary == null || it.timestampStart >= boundary }
 
@@ -38,6 +50,14 @@ class InsightsViewModel @Inject constructor(
             topSymptoms = topTags(filtered) { it.symptoms },
             topTriggers = topTags(filtered) { it.triggers },
             pressureBuckets = buildPressureBuckets(filtered),
+            isPremium = settings.premiumStatus,
+            // Trends need more history than a single period filter to mean anything, so these
+            // are computed over the full dataset rather than the period selected above.
+            triggerCorrelations = buildTriggerCorrelations(attacks),
+            medicationStats = buildMedicationStats(attacks, medications, crossRefs),
+            weekdayTrends = buildWeekdayTrends(attacks),
+            dayPartTrends = buildDayPartTrends(attacks),
+            seasonTrends = buildSeasonTrends(attacks),
         )
     }.stateIn(
         scope = viewModelScope,

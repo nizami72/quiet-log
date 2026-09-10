@@ -30,6 +30,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.quietlog.app.R
 import com.quietlog.app.ui.PREMIUM_FEATURES
 import com.quietlog.app.ui.PremiumFeature
+import com.quietlog.app.ui.StatsBucket
 import com.quietlog.app.ui.StatsPeriod
 import com.quietlog.app.ui.Symptom
 import com.quietlog.app.ui.Trigger
@@ -103,12 +104,74 @@ fun InsightsScreen(
                 }
             }
 
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text(stringResource(R.string.premium_brand_title), style = MaterialTheme.typography.titleMedium)
-                PREMIUM_FEATURES.forEach { feature ->
-                    PremiumTeaserCard(feature = feature, onClick = onNavigateToPremium)
+            if (uiState.isPremium) {
+                PremiumAnalyticsSection(uiState)
+            } else {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text(stringResource(R.string.premium_brand_title), style = MaterialTheme.typography.titleMedium)
+                    PREMIUM_FEATURES.forEach { feature ->
+                        PremiumTeaserCard(feature = feature, onClick = onNavigateToPremium)
+                    }
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun PremiumAnalyticsSection(uiState: InsightsUiState) {
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text(stringResource(R.string.insights_trigger_correlation_title), style = MaterialTheme.typography.titleMedium)
+        Text(stringResource(R.string.insights_trigger_correlation_subtitle), style = MaterialTheme.typography.bodyMedium)
+        if (uiState.triggerCorrelations.isEmpty()) {
+            Text(stringResource(R.string.insights_no_data), style = MaterialTheme.typography.bodyLarge)
+        } else {
+            uiState.triggerCorrelations.forEach { (key, percent) ->
+                val label = Trigger.fromKey(key)?.let { stringResource(it.labelRes) } ?: key
+                Text(stringResource(R.string.format_trigger_correlation, label, percent), style = MaterialTheme.typography.bodyLarge)
+            }
+        }
+    }
+
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text(stringResource(R.string.premium_feature_medication_effectiveness_title), style = MaterialTheme.typography.titleMedium)
+        Text(stringResource(R.string.insights_medication_effectiveness_subtitle), style = MaterialTheme.typography.bodyMedium)
+        if (uiState.medicationStats.isEmpty()) {
+            Text(stringResource(R.string.insights_no_data), style = MaterialTheme.typography.bodyLarge)
+        } else {
+            uiState.medicationStats.forEach { stat ->
+                Text(
+                    "${stat.name} — " + stringResource(R.string.format_medication_stat, "%.1f".format(stat.avgIntensity), stat.attackCount),
+                    style = MaterialTheme.typography.bodyLarge,
+                )
+            }
+        }
+    }
+
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text(stringResource(R.string.insights_weekday_trend_title), style = MaterialTheme.typography.titleMedium)
+        if (uiState.weekdayTrends.isEmpty()) {
+            Text(stringResource(R.string.insights_no_data), style = MaterialTheme.typography.bodyLarge)
+        } else {
+            SimpleBarChart(points = uiState.weekdayTrends)
+        }
+    }
+
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text(stringResource(R.string.insights_daypart_trend_title), style = MaterialTheme.typography.titleMedium)
+        if (uiState.dayPartTrends.isEmpty()) {
+            Text(stringResource(R.string.insights_no_data), style = MaterialTheme.typography.bodyLarge)
+        } else {
+            SimpleBarChart(points = uiState.dayPartTrends.map { StatsBucket(stringResource(it.part.labelRes), it.count, it.avgIntensity) })
+        }
+    }
+
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text(stringResource(R.string.insights_season_trend_title), style = MaterialTheme.typography.titleMedium)
+        if (uiState.seasonTrends.isEmpty()) {
+            Text(stringResource(R.string.insights_no_data), style = MaterialTheme.typography.bodyLarge)
+        } else {
+            SimpleBarChart(points = uiState.seasonTrends.map { StatsBucket(stringResource(it.season.labelRes), it.count, it.avgIntensity) })
         }
     }
 }
