@@ -24,13 +24,22 @@ import com.quietlog.app.ui.screens.settings.SettingsScreen
 fun QuietLogNavHost(
     navController: NavHostController = rememberNavController(),
     modifier: Modifier = Modifier,
+    startDestination: String = Destination.Home.route,
 ) {
     NavHost(
         navController = navController,
-        startDestination = Destination.Home.route,
+        startDestination = startDestination,
         modifier = modifier,
     ) {
-        composable(Destination.Onboarding.route) { OnboardingScreen() }
+        composable(Destination.Onboarding.route) {
+            OnboardingScreen(
+                onFinished = {
+                    navController.navigate(Destination.Home.route) {
+                        popUpTo(Destination.Onboarding.route) { inclusive = true }
+                    }
+                },
+            )
+        }
 
         composable(Destination.Home.route) {
             HomeScreen(onLogAttackClick = { navController.navigate(Destination.QuickLog.route) })

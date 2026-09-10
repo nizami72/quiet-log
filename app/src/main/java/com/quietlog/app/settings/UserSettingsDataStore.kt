@@ -20,6 +20,16 @@ class UserSettingsDataStore @Inject constructor(
         val PREMIUM_STATUS = booleanPreferencesKey("premium_status")
         val CYCLE_TRACKING_ENABLED = booleanPreferencesKey("cycle_tracking_enabled")
         val REMINDERS_ENABLED = booleanPreferencesKey("reminders_enabled")
+        val ONBOARDING_COMPLETED = booleanPreferencesKey("onboarding_completed")
+    }
+
+    /** Not part of [UserSettings] — app-internal state, not the ТЗ-specified settings model. */
+    val onboardingCompleted: Flow<Boolean> = context.userSettingsDataStore.data.map { prefs ->
+        prefs[Keys.ONBOARDING_COMPLETED] ?: false
+    }
+
+    suspend fun setOnboardingCompleted() {
+        context.userSettingsDataStore.edit { it[Keys.ONBOARDING_COMPLETED] = true }
     }
 
     val settings: Flow<UserSettings> = context.userSettingsDataStore.data.map { prefs ->
