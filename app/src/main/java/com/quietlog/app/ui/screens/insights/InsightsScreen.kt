@@ -24,11 +24,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.quietlog.app.R
 import com.quietlog.app.ui.PREMIUM_FEATURES
 import com.quietlog.app.ui.PremiumFeature
 import com.quietlog.app.ui.StatsPeriod
+import com.quietlog.app.ui.Symptom
+import com.quietlog.app.ui.Trigger
 import com.quietlog.app.ui.components.SimpleBarChart
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -42,7 +46,7 @@ fun InsightsScreen(
 
     Scaffold(
         modifier = modifier,
-        topBar = { TopAppBar(title = { Text("Статистика / Инсайты") }) },
+        topBar = { TopAppBar(title = { Text(stringResource(R.string.insights_title)) }) },
     ) { padding ->
         Column(
             modifier = Modifier
@@ -58,33 +62,40 @@ fun InsightsScreen(
                         onClick = { viewModel.selectPeriod(period) },
                         shape = SegmentedButtonDefaults.itemShape(index, StatsPeriod.entries.size),
                     ) {
-                        Text(period.label)
+                        Text(stringResource(period.labelRes))
                     }
                 }
             }
 
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 StatCard(
-                    title = "Всего приступов",
+                    title = stringResource(R.string.insights_total_attacks),
                     value = uiState.totalCount.toString(),
                     modifier = Modifier.weight(1f),
                 )
                 StatCard(
-                    title = "Средняя интенсивность",
+                    title = stringResource(R.string.insights_avg_intensity),
                     value = "%.1f/10".format(uiState.avgIntensity),
                     modifier = Modifier.weight(1f),
                 )
             }
 
-            TagFrequencyList(title = "Частые симптомы", tags = uiState.topSymptoms)
-            TagFrequencyList(title = "Частые триггеры", tags = uiState.topTriggers)
+            TagFrequencyList(
+                title = stringResource(R.string.insights_top_symptoms),
+                tags = uiState.topSymptoms,
+                labelFor = { key -> Symptom.fromKey(key)?.let { stringResource(it.labelRes) } ?: key },
+            )
+            TagFrequencyList(
+                title = stringResource(R.string.insights_top_triggers),
+                tags = uiState.topTriggers,
+                labelFor = { key -> Trigger.fromKey(key)?.let { stringResource(it.labelRes) } ?: key },
+            )
 
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text("Давление ↔ частота приступов", style = MaterialTheme.typography.titleMedium)
+                Text(stringResource(R.string.insights_pressure_correlation_title), style = MaterialTheme.typography.titleMedium)
                 if (uiState.pressureBuckets.isEmpty()) {
                     Text(
-                        "Пока недостаточно записей с показанием барометра — данные появятся " +
-                            "по мере логирования приступов на устройстве с датчиком давления.",
+                        stringResource(R.string.insights_pressure_correlation_empty),
                         style = MaterialTheme.typography.bodyLarge,
                     )
                 } else {
@@ -93,7 +104,7 @@ fun InsightsScreen(
             }
 
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text("QuietLog Premium", style = MaterialTheme.typography.titleMedium)
+                Text(stringResource(R.string.premium_brand_title), style = MaterialTheme.typography.titleMedium)
                 PREMIUM_FEATURES.forEach { feature ->
                     PremiumTeaserCard(feature = feature, onClick = onNavigateToPremium)
                 }
@@ -113,14 +124,21 @@ private fun StatCard(title: String, value: String, modifier: Modifier = Modifier
 }
 
 @Composable
-private fun TagFrequencyList(title: String, tags: List<Pair<String, Int>>) {
+private fun TagFrequencyList(
+    title: String,
+    tags: List<Pair<String, Int>>,
+    labelFor: @Composable (String) -> String,
+) {
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(title, style = MaterialTheme.typography.titleMedium)
         if (tags.isEmpty()) {
-            Text("Нет данных за выбранный период", style = MaterialTheme.typography.bodyLarge)
+            Text(stringResource(R.string.insights_no_data_for_period), style = MaterialTheme.typography.bodyLarge)
         } else {
             tags.forEach { (tag, count) ->
-                Text("$tag — $count", style = MaterialTheme.typography.bodyLarge)
+                Text(
+                    stringResource(R.string.format_tag_count, labelFor(tag), count),
+                    style = MaterialTheme.typography.bodyLarge,
+                )
             }
         }
     }
@@ -139,8 +157,8 @@ private fun PremiumTeaserCard(feature: PremiumFeature, onClick: () -> Unit) {
         ) {
             Icon(Icons.Filled.Lock, contentDescription = null)
             Column {
-                Text(feature.title, style = MaterialTheme.typography.titleMedium)
-                Text(feature.description, style = MaterialTheme.typography.bodyLarge)
+                Text(stringResource(feature.titleRes), style = MaterialTheme.typography.titleMedium)
+                Text(stringResource(feature.descriptionRes), style = MaterialTheme.typography.bodyLarge)
             }
         }
     }

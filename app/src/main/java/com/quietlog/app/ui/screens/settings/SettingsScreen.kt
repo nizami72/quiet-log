@@ -16,6 +16,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.quietlog.app.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -27,25 +29,25 @@ fun SettingsScreen(
 ) {
     Scaffold(
         modifier = modifier,
-        topBar = { TopAppBar(title = { Text("Настройки") }) },
+        topBar = { TopAppBar(title = { Text(stringResource(R.string.settings_title)) }) },
     ) { padding ->
         Column(modifier = Modifier.padding(padding)) {
             ListItem(
-                headlineContent = { Text("Медикаменты") },
+                headlineContent = { Text(stringResource(R.string.label_medications)) },
                 leadingContent = { Icon(Icons.Filled.Medication, contentDescription = null) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable(onClick = onNavigateToMedications),
             )
             ListItem(
-                headlineContent = { Text("Отчёт для врача") },
+                headlineContent = { Text(stringResource(R.string.settings_item_pdf_report)) },
                 leadingContent = { Icon(Icons.Filled.Description, contentDescription = null) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable(onClick = onNavigateToPdfReport),
             )
             ListItem(
-                headlineContent = { Text("QuietLog Premium") },
+                headlineContent = { Text(stringResource(R.string.premium_brand_title)) },
                 leadingContent = { Icon(Icons.Filled.WorkspacePremium, contentDescription = null) },
                 modifier = Modifier
                     .fillMaxWidth()

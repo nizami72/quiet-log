@@ -18,9 +18,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.quietlog.app.ui.AttackFieldOptions
+import com.quietlog.app.R
+import com.quietlog.app.ui.LocationZone
+import com.quietlog.app.ui.Symptom
+import com.quietlog.app.ui.Trigger
 import com.quietlog.app.ui.components.MedicationSelector
 import com.quietlog.app.ui.components.SelectableChipGroup
 
@@ -35,7 +39,7 @@ fun LogDetailsScreen(
 
     Scaffold(
         modifier = modifier,
-        topBar = { TopAppBar(title = { Text("Добавить детали") }) },
+        topBar = { TopAppBar(title = { Text(stringResource(R.string.log_details_title)) }) },
     ) { padding ->
         Column(
             modifier = Modifier
@@ -46,40 +50,40 @@ fun LogDetailsScreen(
         ) {
             uiState.intensity?.let { intensity ->
                 Text(
-                    text = "Интенсивность: $intensity/10",
+                    text = stringResource(R.string.format_intensity_value, intensity),
                     style = MaterialTheme.typography.titleLarge,
                 )
             }
 
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text("Локализация боли", style = MaterialTheme.typography.titleMedium)
+                Text(stringResource(R.string.label_location_zone), style = MaterialTheme.typography.titleMedium)
                 SelectableChipGroup(
-                    options = AttackFieldOptions.LOCATION_ZONE_OPTIONS,
+                    options = LocationZone.entries.map { it.name to stringResource(it.labelRes) },
                     selected = uiState.locationZones,
                     onToggle = viewModel::toggleLocationZone,
                 )
             }
 
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text("Симптомы", style = MaterialTheme.typography.titleMedium)
+                Text(stringResource(R.string.label_symptoms), style = MaterialTheme.typography.titleMedium)
                 SelectableChipGroup(
-                    options = AttackFieldOptions.SYMPTOM_OPTIONS,
+                    options = Symptom.entries.map { it.name to stringResource(it.labelRes) },
                     selected = uiState.symptoms,
                     onToggle = viewModel::toggleSymptom,
                 )
             }
 
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text("Возможные триггеры", style = MaterialTheme.typography.titleMedium)
+                Text(stringResource(R.string.label_triggers), style = MaterialTheme.typography.titleMedium)
                 SelectableChipGroup(
-                    options = AttackFieldOptions.TRIGGER_OPTIONS,
+                    options = Trigger.entries.map { it.name to stringResource(it.labelRes) },
                     selected = uiState.triggers,
                     onToggle = viewModel::toggleTrigger,
                 )
             }
 
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text("Медикаменты", style = MaterialTheme.typography.titleMedium)
+                Text(stringResource(R.string.label_medications), style = MaterialTheme.typography.titleMedium)
                 MedicationSelector(
                     medications = uiState.medications,
                     selectedIds = uiState.selectedMedicationIds,
@@ -90,7 +94,7 @@ fun LogDetailsScreen(
             OutlinedTextField(
                 value = uiState.note,
                 onValueChange = viewModel::updateNote,
-                label = { Text("Заметка") },
+                label = { Text(stringResource(R.string.label_note)) },
                 modifier = Modifier.fillMaxWidth(),
                 minLines = 3,
             )
@@ -100,13 +104,13 @@ fun LogDetailsScreen(
                     onClick = { viewModel.save(onDone) },
                     modifier = Modifier.fillMaxWidth(),
                 ) {
-                    Text("Готово")
+                    Text(stringResource(R.string.action_done))
                 }
                 OutlinedButton(
                     onClick = onDone,
                     modifier = Modifier.fillMaxWidth(),
                 ) {
-                    Text("Пропустить")
+                    Text(stringResource(R.string.action_skip))
                 }
             }
         }

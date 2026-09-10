@@ -24,8 +24,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.foundation.layout.size
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.quietlog.app.R
 import com.quietlog.app.ui.StatsPeriod
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -37,6 +39,7 @@ fun PdfReportScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current
+    val shareChooserTitle = stringResource(R.string.pdfreport_share_chooser_title)
 
     LaunchedEffect(uiState.pendingShareUri) {
         val uri = uiState.pendingShareUri ?: return@LaunchedEffect
@@ -45,13 +48,13 @@ fun PdfReportScreen(
             putExtra(Intent.EXTRA_STREAM, uri)
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
-        context.startActivity(Intent.createChooser(shareIntent, "Поделиться отчётом"))
+        context.startActivity(Intent.createChooser(shareIntent, shareChooserTitle))
         viewModel.shareHandled()
     }
 
     Scaffold(
         modifier = modifier,
-        topBar = { TopAppBar(title = { Text("PDF-отчёт для врача") }) },
+        topBar = { TopAppBar(title = { Text(stringResource(R.string.pdfreport_title)) }) },
     ) { padding ->
         if (!uiState.isPremium) {
             Column(
@@ -63,11 +66,11 @@ fun PdfReportScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
-                    "PDF-отчёт для врача доступен в QuietLog Premium",
+                    stringResource(R.string.pdfreport_premium_required),
                     style = MaterialTheme.typography.titleMedium,
                 )
                 Button(onClick = onNavigateToPremium, modifier = Modifier.padding(top = 16.dp)) {
-                    Text("Открыть Premium")
+                    Text(stringResource(R.string.pdfreport_open_premium))
                 }
             }
             return@Scaffold
@@ -81,8 +84,7 @@ fun PdfReportScreen(
             verticalArrangement = Arrangement.spacedBy(20.dp),
         ) {
             Text(
-                "Отчёт включает список приступов, интенсивность, симптомы, триггеры, " +
-                    "медикаменты и график за выбранный период. Генерируется локально на устройстве.",
+                stringResource(R.string.pdfreport_description),
                 style = MaterialTheme.typography.bodyLarge,
             )
 
@@ -93,7 +95,7 @@ fun PdfReportScreen(
                         onClick = { viewModel.selectPeriod(period) },
                         shape = SegmentedButtonDefaults.itemShape(index, StatsPeriod.entries.size),
                     ) {
-                        Text(period.label)
+                        Text(stringResource(period.labelRes))
                     }
                 }
             }
@@ -111,7 +113,7 @@ fun PdfReportScreen(
                         strokeWidth = 2.dp,
                     )
                 }
-                Text(if (uiState.isGenerating) "Генерация…" else "Сгенерировать и поделиться")
+                Text(stringResource(if (uiState.isGenerating) R.string.pdfreport_generating else R.string.pdfreport_generate_share))
             }
         }
     }

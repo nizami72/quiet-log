@@ -23,8 +23,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.quietlog.app.R
 import com.quietlog.app.data.billing.BillingConnectionState
 import com.quietlog.app.ui.PREMIUM_FEATURES
 
@@ -45,7 +47,7 @@ fun PremiumScreen(
 
     Scaffold(
         modifier = modifier,
-        topBar = { TopAppBar(title = { Text("QuietLog Premium") }) },
+        topBar = { TopAppBar(title = { Text(stringResource(R.string.premium_brand_title)) }) },
     ) { padding ->
         Column(
             modifier = Modifier
@@ -54,14 +56,14 @@ fun PremiumScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             Text(
-                "Разовая покупка, без подписки. Входит:",
+                stringResource(R.string.premium_one_time_purchase_intro),
                 style = MaterialTheme.typography.titleMedium,
             )
 
             PREMIUM_FEATURES.forEach { feature ->
                 Column {
-                    Text(feature.title, style = MaterialTheme.typography.titleMedium)
-                    Text(feature.description, style = MaterialTheme.typography.bodyLarge)
+                    Text(stringResource(feature.titleRes), style = MaterialTheme.typography.titleMedium)
+                    Text(stringResource(feature.descriptionRes), style = MaterialTheme.typography.bodyLarge)
                 }
             }
 
@@ -73,18 +75,18 @@ fun PremiumScreen(
                             horizontalArrangement = Arrangement.spacedBy(12.dp),
                         ) {
                             Icon(Icons.Filled.CheckCircle, contentDescription = null)
-                            Text("Уже куплено", style = MaterialTheme.typography.titleMedium)
+                            Text(stringResource(R.string.premium_already_purchased), style = MaterialTheme.typography.titleMedium)
                         }
                     }
                 }
 
                 uiState.connectionState == BillingConnectionState.UNAVAILABLE -> {
                     Text(
-                        "Покупка временно недоступна. Проверьте, что Google Play доступен на устройстве.",
+                        stringResource(R.string.premium_unavailable),
                         style = MaterialTheme.typography.bodyLarge,
                     )
                     Button(onClick = {}, enabled = false, modifier = Modifier.fillMaxWidth()) {
-                        Text("Купить")
+                        Text(stringResource(R.string.action_buy))
                     }
                 }
 
@@ -94,7 +96,10 @@ fun PremiumScreen(
                         enabled = activity != null,
                         modifier = Modifier.fillMaxWidth(),
                     ) {
-                        Text(uiState.priceLabel?.let { "Купить за $it" } ?: "Купить")
+                        Text(
+                            uiState.priceLabel?.let { stringResource(R.string.format_buy_with_price, it) }
+                                ?: stringResource(R.string.action_buy),
+                        )
                     }
                 }
             }

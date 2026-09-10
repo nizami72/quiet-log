@@ -13,8 +13,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.quietlog.app.R
 import com.quietlog.app.ui.components.IntensityPicker
 import kotlinx.coroutines.launch
 
@@ -30,7 +32,7 @@ fun QuickLogScreen(
 
     Scaffold(
         modifier = modifier,
-        topBar = { TopAppBar(title = { Text("Приступ сейчас") }) },
+        topBar = { TopAppBar(title = { Text(stringResource(R.string.attack_now)) }) },
     ) { padding ->
         IntensityPicker(
             selected = null,

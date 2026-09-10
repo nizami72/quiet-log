@@ -1,0 +1,147 @@
+<resources>
+    <string name="app_name">QuietLog</string>
+
+    <!-- Common actions -->
+    <string name="action_save">Save</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_done">Done</string>
+    <string name="action_skip">Skip</string>
+    <string name="action_next">Next</string>
+    <string name="action_start">Start</string>
+    <string name="action_buy">Buy</string>
+    <string name="dialog_action_irreversible">This action cannot be undone.</string>
+
+    <!-- Shared field labels -->
+    <string name="label_intensity">Intensity</string>
+    <string name="format_intensity_value">Intensity: %1$d/10</string>
+    <string name="label_location_zone">Pain location</string>
+    <string name="label_symptoms">Symptoms</string>
+    <string name="label_triggers">Possible triggers</string>
+    <string name="label_medications">Medications</string>
+    <string name="label_note">Note</string>
+
+    <!-- Location zones -->
+    <string name="location_zone_forehead">Forehead</string>
+    <string name="location_zone_left_temple">Left temple</string>
+    <string name="location_zone_right_temple">Right temple</string>
+    <string name="location_zone_occiput">Back of the head</string>
+    <string name="location_zone_whole_head">Whole head</string>
+
+    <!-- Symptoms -->
+    <string name="symptom_nausea">Nausea</string>
+    <string name="symptom_photophobia">Light sensitivity</string>
+    <string name="symptom_phonophobia">Sound sensitivity</string>
+    <string name="symptom_aura">Aura</string>
+
+    <!-- Triggers -->
+    <string name="trigger_stress">Stress</string>
+    <string name="trigger_sleep">Sleep</string>
+    <string name="trigger_food">Food</string>
+    <string name="trigger_hormonal_cycle">Hormonal cycle</string>
+
+    <!-- Stats periods -->
+    <string name="period_week">Week</string>
+    <string name="period_month">Month</string>
+    <string name="period_three_months">3 months</string>
+    <string name="period_all_time">All time</string>
+
+    <!-- Bottom navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_history">History</string>
+    <string name="nav_insights">Insights</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Home -->
+    <string name="home_weekly_summary_placeholder">Your weekly summary will appear here</string>
+    <string name="attack_now">Log attack</string>
+
+    <!-- Medication selector -->
+    <string name="medication_list_empty">Your medication list is empty — add some in Settings → Medications</string>
+
+    <!-- Attack record -->
+    <string name="attack_record_title_fallback">Attack</string>
+    <string name="attack_record_delete_description">Delete record</string>
+    <string name="dialog_delete_attack_title">Delete this record?</string>
+
+    <!-- History -->
+    <string name="history_title">Attack history</string>
+    <string name="history_empty">No records for this period</string>
+
+    <!-- Log details -->
+    <string name="log_details_title">Add details</string>
+
+    <!-- Insights -->
+    <string name="insights_title">Stats / Insights</string>
+    <string name="insights_total_attacks">Total attacks</string>
+    <string name="insights_avg_intensity">Average intensity</string>
+    <string name="insights_top_symptoms">Most common symptoms</string>
+    <string name="insights_top_triggers">Most common triggers</string>
+    <string name="insights_no_data_for_period">No data for the selected period</string>
+    <string name="insights_pressure_correlation_title">Pressure ↔ attack frequency</string>
+    <string name="insights_pressure_correlation_empty">Not enough barometer readings yet — data will appear as you log attacks on a device with a pressure sensor.</string>
+    <string name="format_tag_count">%1$s — %2$d</string>
+
+    <!-- Medications list -->
+    <string name="medications_empty">Your medication list is empty</string>
+    <string name="action_add_medication">Add medication</string>
+    <string name="dialog_delete_medication_title">Delete this medication?</string>
+    <string name="dialog_new_medication_title">New medication</string>
+    <string name="dialog_edit_medication_title">Edit medication</string>
+    <string name="label_medication_name">Name</string>
+    <string name="label_medication_dosage">Dosage</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_page1_title">Log an attack in 2 taps</string>
+    <string name="onboarding_page1_description">\"Log attack\" → intensity — and it\'s already saved. Add the rest of the details later, whenever you have the time and energy.</string>
+    <string name="onboarding_page2_title">No ads. Ever.</string>
+    <string name="onboarding_page2_description">No banners, no interstitials — not on the free tier, not on Premium. This is a medical diary, not a place for ads.</string>
+    <string name="onboarding_page3_title">Weather is free, an account is optional</string>
+    <string name="onboarding_page3_description">Weather correlation is available from day one, no subscription needed. An account is only for syncing across devices — you can start right away.</string>
+
+    <!-- PDF report screen -->
+    <string name="pdfreport_title">PDF report for your doctor</string>
+    <string name="pdfreport_share_chooser_title">Share report</string>
+    <string name="pdfreport_premium_required">The PDF report for your doctor is available in QuietLog Premium</string>
+    <string name="pdfreport_open_premium">Open Premium</string>
+    <string name="pdfreport_description">The report includes your attack list, intensity, symptoms, triggers, medications, and a chart for the selected period. Generated locally on your device.</string>
+    <string name="pdfreport_generating">Generating…</string>
+    <string name="pdfreport_generate_share">Generate and share</string>
+
+    <!-- Premium screen -->
+    <string name="premium_brand_title">QuietLog Premium</string>
+    <string name="premium_one_time_purchase_intro">One-time purchase, no subscription. Includes:</string>
+    <string name="premium_already_purchased">Already purchased</string>
+    <string name="premium_unavailable">Purchases are temporarily unavailable. Check that Google Play is available on this device.</string>
+    <string name="format_buy_with_price">Buy for %1$s</string>
+
+    <!-- Premium features -->
+    <string name="premium_feature_trigger_analysis_title">Advanced trigger analysis</string>
+    <string name="premium_feature_trigger_analysis_description">Automatic correlation for each trigger, not just a list</string>
+    <string name="premium_feature_medication_effectiveness_title">Medication effectiveness</string>
+    <string name="premium_feature_medication_effectiveness_description">Compare medications by average pain-intensity reduction</string>
+    <string name="premium_feature_cycle_correlation_title">Cycle correlation</string>
+    <string name="premium_feature_cycle_correlation_description">If you\'ve enabled hormonal cycle tracking</string>
+    <string name="premium_feature_pdf_report_title">PDF report for your doctor</string>
+    <string name="premium_feature_pdf_report_description">Attack list, intensity, symptoms, medications, and a chart for the period</string>
+    <string name="premium_feature_extended_trends_title">Extended trends</string>
+    <string name="premium_feature_extended_trends_description">Day of week, time of day, seasonality</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_item_pdf_report">Doctor\'s report</string>
+
+    <!-- PDF report content -->
+    <string name="pdf_title">QuietLog — report for your doctor</string>
+    <string name="pdf_period">Period: %1$s</string>
+    <string name="pdf_total_attacks">Total attacks: %1$d</string>
+    <string name="pdf_avg_intensity">Average intensity: %1$s/10</string>
+    <string name="pdf_frequency_by_period">Attack frequency by period:</string>
+    <string name="pdf_attack_list">Attack list:</string>
+    <string name="pdf_attack_header">%1$s — intensity %2$d/10</string>
+    <string name="pdf_location">Location: %1$s</string>
+    <string name="pdf_symptoms">Symptoms: %1$s</string>
+    <string name="pdf_triggers">Triggers: %1$s</string>
+    <string name="pdf_medications">Medications: %1$s</string>
+    <string name="pdf_note">Note: %1$s</string>
+</resources>

@@ -32,8 +32,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.quietlog.app.R
 import com.quietlog.app.data.local.entity.MedicationEntity
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -49,10 +51,10 @@ fun MedicationsScreen(
 
     Scaffold(
         modifier = modifier,
-        topBar = { TopAppBar(title = { Text("Медикаменты") }) },
+        topBar = { TopAppBar(title = { Text(stringResource(R.string.label_medications)) }) },
         floatingActionButton = {
             FloatingActionButton(onClick = { isAddingNew = true }) {
-                Icon(Icons.Filled.Add, contentDescription = "Добавить медикамент")
+                Icon(Icons.Filled.Add, contentDescription = stringResource(R.string.action_add_medication))
             }
         },
     ) { padding ->
@@ -65,7 +67,7 @@ fun MedicationsScreen(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Text("Список препаратов пуст")
+                Text(stringResource(R.string.medications_empty))
             }
         } else {
             LazyColumn(
@@ -111,19 +113,19 @@ fun MedicationsScreen(
     deletingMedication?.let { medication ->
         AlertDialog(
             onDismissRequest = { deletingMedication = null },
-            title = { Text("Удалить препарат?") },
-            text = { Text("Действие нельзя отменить.") },
+            title = { Text(stringResource(R.string.dialog_delete_medication_title)) },
+            text = { Text(stringResource(R.string.dialog_action_irreversible)) },
             confirmButton = {
                 TextButton(onClick = {
                     viewModel.delete(medication)
                     deletingMedication = null
                 }) {
-                    Text("Удалить")
+                    Text(stringResource(R.string.action_delete))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { deletingMedication = null }) {
-                    Text("Отмена")
+                    Text(stringResource(R.string.action_cancel))
                 }
             },
         )
@@ -149,7 +151,7 @@ private fun MedicationRow(
                 Text(medication.dosage, style = MaterialTheme.typography.bodyLarge)
             }
             IconButton(onClick = onDeleteClick) {
-                Icon(Icons.Filled.Delete, contentDescription = "Удалить")
+                Icon(Icons.Filled.Delete, contentDescription = stringResource(R.string.action_delete))
             }
         }
     }
@@ -166,19 +168,25 @@ private fun MedicationEditDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(if (initial == null) "Новый медикамент" else "Изменить медикамент") },
+        title = {
+            Text(
+                stringResource(
+                    if (initial == null) R.string.dialog_new_medication_title else R.string.dialog_edit_medication_title,
+                ),
+            )
+        },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it },
-                    label = { Text("Название") },
+                    label = { Text(stringResource(R.string.label_medication_name)) },
                     modifier = Modifier.fillMaxWidth(),
                 )
                 OutlinedTextField(
                     value = dosage,
                     onValueChange = { dosage = it },
-                    label = { Text("Дозировка") },
+                    label = { Text(stringResource(R.string.label_medication_dosage)) },
                     modifier = Modifier.fillMaxWidth(),
                 )
             }
@@ -188,12 +196,12 @@ private fun MedicationEditDialog(
                 enabled = name.isNotBlank(),
                 onClick = { onSave(name.trim(), dosage.trim()) },
             ) {
-                Text("Сохранить")
+                Text(stringResource(R.string.action_save))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("Отмена")
+                Text(stringResource(R.string.action_cancel))
             }
         },
     )

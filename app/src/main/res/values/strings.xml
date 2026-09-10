@@ -1,3 +1,147 @@
 <resources>
     <string name="app_name">QuietLog</string>
+
+    <!-- Common actions -->
+    <string name="action_save">Сохранить</string>
+    <string name="action_delete">Удалить</string>
+    <string name="action_cancel">Отмена</string>
+    <string name="action_done">Готово</string>
+    <string name="action_skip">Пропустить</string>
+    <string name="action_next">Далее</string>
+    <string name="action_start">Начать</string>
+    <string name="action_buy">Купить</string>
+    <string name="dialog_action_irreversible">Действие нельзя отменить.</string>
+
+    <!-- Shared field labels -->
+    <string name="label_intensity">Интенсивность</string>
+    <string name="format_intensity_value">Интенсивность: %1$d/10</string>
+    <string name="label_location_zone">Локализация боли</string>
+    <string name="label_symptoms">Симптомы</string>
+    <string name="label_triggers">Возможные триггеры</string>
+    <string name="label_medications">Медикаменты</string>
+    <string name="label_note">Заметка</string>
+
+    <!-- Location zones -->
+    <string name="location_zone_forehead">Лоб</string>
+    <string name="location_zone_left_temple">Левый висок</string>
+    <string name="location_zone_right_temple">Правый висок</string>
+    <string name="location_zone_occiput">Затылок</string>
+    <string name="location_zone_whole_head">Вся голова</string>
+
+    <!-- Symptoms -->
+    <string name="symptom_nausea">Тошнота</string>
+    <string name="symptom_photophobia">Светобоязнь</string>
+    <string name="symptom_phonophobia">Звукобоязнь</string>
+    <string name="symptom_aura">Аура</string>
+
+    <!-- Triggers -->
+    <string name="trigger_stress">Стресс</string>
+    <string name="trigger_sleep">Сон</string>
+    <string name="trigger_food">Еда</string>
+    <string name="trigger_hormonal_cycle">Гормональный цикл</string>
+
+    <!-- Stats periods -->
+    <string name="period_week">Неделя</string>
+    <string name="period_month">Месяц</string>
+    <string name="period_three_months">3 месяца</string>
+    <string name="period_all_time">Всё время</string>
+
+    <!-- Bottom navigation -->
+    <string name="nav_home">Главная</string>
+    <string name="nav_history">История</string>
+    <string name="nav_insights">Статистика</string>
+    <string name="nav_settings">Настройки</string>
+
+    <!-- Home -->
+    <string name="home_weekly_summary_placeholder">Сводка за неделю появится здесь</string>
+    <string name="attack_now">Приступ сейчас</string>
+
+    <!-- Medication selector -->
+    <string name="medication_list_empty">Список медикаментов пуст — добавьте в Настройки → Медикаменты</string>
+
+    <!-- Attack record -->
+    <string name="attack_record_title_fallback">Приступ</string>
+    <string name="attack_record_delete_description">Удалить запись</string>
+    <string name="dialog_delete_attack_title">Удалить запись?</string>
+
+    <!-- History -->
+    <string name="history_title">История приступов</string>
+    <string name="history_empty">Записей за этот период нет</string>
+
+    <!-- Log details -->
+    <string name="log_details_title">Добавить детали</string>
+
+    <!-- Insights -->
+    <string name="insights_title">Статистика / Инсайты</string>
+    <string name="insights_total_attacks">Всего приступов</string>
+    <string name="insights_avg_intensity">Средняя интенсивность</string>
+    <string name="insights_top_symptoms">Частые симптомы</string>
+    <string name="insights_top_triggers">Частые триггеры</string>
+    <string name="insights_no_data_for_period">Нет данных за выбранный период</string>
+    <string name="insights_pressure_correlation_title">Давление ↔ частота приступов</string>
+    <string name="insights_pressure_correlation_empty">Пока недостаточно записей с показанием барометра — данные появятся по мере логирования приступов на устройстве с датчиком давления.</string>
+    <string name="format_tag_count">%1$s — %2$d</string>
+
+    <!-- Medications list -->
+    <string name="medications_empty">Список препаратов пуст</string>
+    <string name="action_add_medication">Добавить медикамент</string>
+    <string name="dialog_delete_medication_title">Удалить препарат?</string>
+    <string name="dialog_new_medication_title">Новый медикамент</string>
+    <string name="dialog_edit_medication_title">Изменить медикамент</string>
+    <string name="label_medication_name">Название</string>
+    <string name="label_medication_dosage">Дозировка</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_page1_title">Приступ за 2 тапа</string>
+    <string name="onboarding_page1_description">«Приступ сейчас» → интенсивность — и запись уже сохранена. Остальные детали можно добавить позже, если будет время и силы.</string>
+    <string name="onboarding_page2_title">Без рекламы. Совсем</string>
+    <string name="onboarding_page2_description">Ни баннеров, ни interstitial — ни на бесплатном уровне, ни на платном. Это медицинский дневник, а не место для рекламы.</string>
+    <string name="onboarding_page3_title">Погода — бесплатно, аккаунт — не обязателен</string>
+    <string name="onboarding_page3_description">Погодная корреляция доступна с первого дня без подписки. Регистрация нужна только для синхронизации между устройствами — начать можно сразу.</string>
+
+    <!-- PDF report screen -->
+    <string name="pdfreport_title">PDF-отчёт для врача</string>
+    <string name="pdfreport_share_chooser_title">Поделиться отчётом</string>
+    <string name="pdfreport_premium_required">PDF-отчёт для врача доступен в QuietLog Premium</string>
+    <string name="pdfreport_open_premium">Открыть Premium</string>
+    <string name="pdfreport_description">Отчёт включает список приступов, интенсивность, симптомы, триггеры, медикаменты и график за выбранный период. Генерируется локально на устройстве.</string>
+    <string name="pdfreport_generating">Генерация…</string>
+    <string name="pdfreport_generate_share">Сгенерировать и поделиться</string>
+
+    <!-- Premium screen -->
+    <string name="premium_brand_title">QuietLog Premium</string>
+    <string name="premium_one_time_purchase_intro">Разовая покупка, без подписки. Входит:</string>
+    <string name="premium_already_purchased">Уже куплено</string>
+    <string name="premium_unavailable">Покупка временно недоступна. Проверьте, что Google Play доступен на устройстве.</string>
+    <string name="format_buy_with_price">Купить за %1$s</string>
+
+    <!-- Premium features -->
+    <string name="premium_feature_trigger_analysis_title">Расширенный анализ триггеров</string>
+    <string name="premium_feature_trigger_analysis_description">Автоматический подсчёт корреляции по каждому триггеру, а не просто список</string>
+    <string name="premium_feature_medication_effectiveness_title">Эффективность медикаментов</string>
+    <string name="premium_feature_medication_effectiveness_description">Сравнение препаратов по среднему снижению интенсивности боли</string>
+    <string name="premium_feature_cycle_correlation_title">Корреляция с циклом</string>
+    <string name="premium_feature_cycle_correlation_description">Если включён модуль отслеживания гормонального цикла</string>
+    <string name="premium_feature_pdf_report_title">PDF-отчёт для врача</string>
+    <string name="premium_feature_pdf_report_description">Список приступов, интенсивность, симптомы, медикаменты и график за период</string>
+    <string name="premium_feature_extended_trends_title">Расширенные тренды</string>
+    <string name="premium_feature_extended_trends_description">День недели, время суток, сезонность</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Настройки</string>
+    <string name="settings_item_pdf_report">Отчёт для врача</string>
+
+    <!-- PDF report content -->
+    <string name="pdf_title">QuietLog — отчёт для врача</string>
+    <string name="pdf_period">Период: %1$s</string>
+    <string name="pdf_total_attacks">Всего приступов: %1$d</string>
+    <string name="pdf_avg_intensity">Средняя интенсивность: %1$s/10</string>
+    <string name="pdf_frequency_by_period">Частота приступов по периодам:</string>
+    <string name="pdf_attack_list">Список приступов:</string>
+    <string name="pdf_attack_header">%1$s — интенсивность %2$d/10</string>
+    <string name="pdf_location">Локализация: %1$s</string>
+    <string name="pdf_symptoms">Симптомы: %1$s</string>
+    <string name="pdf_triggers">Триггеры: %1$s</string>
+    <string name="pdf_medications">Медикаменты: %1$s</string>
+    <string name="pdf_note">Заметка: %1$s</string>
 </resources>

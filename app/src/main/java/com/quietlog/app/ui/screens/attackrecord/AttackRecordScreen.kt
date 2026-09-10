@@ -27,9 +27,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.quietlog.app.ui.AttackFieldOptions
+import com.quietlog.app.R
+import com.quietlog.app.ui.LocationZone
+import com.quietlog.app.ui.Symptom
+import com.quietlog.app.ui.Trigger
 import com.quietlog.app.ui.components.IntensityPicker
 import com.quietlog.app.ui.components.MedicationSelector
 import com.quietlog.app.ui.components.SelectableChipGroup
@@ -52,7 +56,7 @@ fun AttackRecordScreen(
 
     val title = uiState.timestampStart?.let {
         Instant.ofEpochMilli(it).atZone(ZoneId.systemDefault()).format(TIMESTAMP_FORMATTER)
-    } ?: "Приступ"
+    } ?: stringResource(R.string.attack_record_title_fallback)
 
     Scaffold(
         modifier = modifier,
@@ -61,7 +65,7 @@ fun AttackRecordScreen(
                 title = { Text(title) },
                 actions = {
                     IconButton(onClick = { showDeleteConfirm = true }) {
-                        Icon(Icons.Filled.Delete, contentDescription = "Удалить запись")
+                        Icon(Icons.Filled.Delete, contentDescription = stringResource(R.string.attack_record_delete_description))
                     }
                 },
             )
@@ -75,7 +79,7 @@ fun AttackRecordScreen(
             verticalArrangement = Arrangement.spacedBy(20.dp),
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text("Интенсивность", style = MaterialTheme.typography.titleMedium)
+                Text(stringResource(R.string.label_intensity), style = MaterialTheme.typography.titleMedium)
                 IntensityPicker(
                     selected = uiState.intensity,
                     onSelect = viewModel::selectIntensity,
@@ -86,34 +90,34 @@ fun AttackRecordScreen(
             }
 
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text("Локализация боли", style = MaterialTheme.typography.titleMedium)
+                Text(stringResource(R.string.label_location_zone), style = MaterialTheme.typography.titleMedium)
                 SelectableChipGroup(
-                    options = AttackFieldOptions.LOCATION_ZONE_OPTIONS,
+                    options = LocationZone.entries.map { it.name to stringResource(it.labelRes) },
                     selected = uiState.locationZones,
                     onToggle = viewModel::toggleLocationZone,
                 )
             }
 
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text("Симптомы", style = MaterialTheme.typography.titleMedium)
+                Text(stringResource(R.string.label_symptoms), style = MaterialTheme.typography.titleMedium)
                 SelectableChipGroup(
-                    options = AttackFieldOptions.SYMPTOM_OPTIONS,
+                    options = Symptom.entries.map { it.name to stringResource(it.labelRes) },
                     selected = uiState.symptoms,
                     onToggle = viewModel::toggleSymptom,
                 )
             }
 
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text("Возможные триггеры", style = MaterialTheme.typography.titleMedium)
+                Text(stringResource(R.string.label_triggers), style = MaterialTheme.typography.titleMedium)
                 SelectableChipGroup(
-                    options = AttackFieldOptions.TRIGGER_OPTIONS,
+                    options = Trigger.entries.map { it.name to stringResource(it.labelRes) },
                     selected = uiState.triggers,
                     onToggle = viewModel::toggleTrigger,
                 )
             }
 
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text("Медикаменты", style = MaterialTheme.typography.titleMedium)
+                Text(stringResource(R.string.label_medications), style = MaterialTheme.typography.titleMedium)
                 MedicationSelector(
                     medications = uiState.medications,
                     selectedIds = uiState.selectedMedicationIds,
@@ -124,7 +128,7 @@ fun AttackRecordScreen(
             OutlinedTextField(
                 value = uiState.note,
                 onValueChange = viewModel::updateNote,
-                label = { Text("Заметка") },
+                label = { Text(stringResource(R.string.label_note)) },
                 modifier = Modifier.fillMaxWidth(),
                 minLines = 3,
             )
@@ -133,7 +137,7 @@ fun AttackRecordScreen(
                 onClick = { viewModel.save(onSaved) },
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                Text("Сохранить")
+                Text(stringResource(R.string.action_save))
             }
         }
     }
@@ -141,19 +145,19 @@ fun AttackRecordScreen(
     if (showDeleteConfirm) {
         AlertDialog(
             onDismissRequest = { showDeleteConfirm = false },
-            title = { Text("Удалить запись?") },
-            text = { Text("Действие нельзя отменить.") },
+            title = { Text(stringResource(R.string.dialog_delete_attack_title)) },
+            text = { Text(stringResource(R.string.dialog_action_irreversible)) },
             confirmButton = {
                 TextButton(onClick = {
                     showDeleteConfirm = false
                     viewModel.delete(onDeleted)
                 }) {
-                    Text("Удалить")
+                    Text(stringResource(R.string.action_delete))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showDeleteConfirm = false }) {
-                    Text("Отмена")
+                    Text(stringResource(R.string.action_cancel))
                 }
             },
         )

@@ -9,7 +9,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.quietlog.app.R
 import com.quietlog.app.data.local.entity.MedicationEntity
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
@@ -22,7 +24,7 @@ fun MedicationSelector(
 ) {
     if (medications.isEmpty()) {
         Text(
-            "Список медикаментов пуст — добавьте в Настройки → Медикаменты",
+            stringResource(R.string.medication_list_empty),
             style = MaterialTheme.typography.bodyLarge,
             modifier = modifier,
         )

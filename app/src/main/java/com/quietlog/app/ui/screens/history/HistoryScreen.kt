@@ -22,8 +22,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.quietlog.app.R
 import com.quietlog.app.data.local.entity.AttackEntity
 import com.quietlog.app.ui.StatsPeriod
 import com.quietlog.app.ui.components.SimpleBarChart
@@ -44,7 +46,7 @@ fun HistoryScreen(
 
     Scaffold(
         modifier = modifier,
-        topBar = { TopAppBar(title = { Text("История приступов") }) },
+        topBar = { TopAppBar(title = { Text(stringResource(R.string.history_title)) }) },
     ) { padding ->
         Column(modifier = Modifier.padding(padding)) {
             SingleChoiceSegmentedButtonRow(
@@ -58,7 +60,7 @@ fun HistoryScreen(
                         onClick = { viewModel.selectPeriod(period) },
                         shape = SegmentedButtonDefaults.itemShape(index, StatsPeriod.entries.size),
                     ) {
-                        Text(period.label)
+                        Text(stringResource(period.labelRes))
                     }
                 }
             }
@@ -78,7 +80,7 @@ fun HistoryScreen(
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
-                    Text("Записей за этот период нет")
+                    Text(stringResource(R.string.history_empty))
                 }
             } else {
                 LazyColumn(
@@ -103,7 +105,7 @@ private fun AttackRow(attack: AttackEntity, onClick: () -> Unit) {
         .clickable(onClick = onClick)) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
-                text = "Интенсивность: ${attack.intensity}/10",
+                text = stringResource(R.string.format_intensity_value, attack.intensity),
                 style = MaterialTheme.typography.titleMedium,
             )
             Text(

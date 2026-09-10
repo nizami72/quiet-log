@@ -5,9 +5,13 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.pdf.PdfDocument
+import com.quietlog.app.R
 import com.quietlog.app.data.local.entity.AttackEntity
+import com.quietlog.app.ui.LocationZone
 import com.quietlog.app.ui.StatsBucket
 import com.quietlog.app.ui.StatsPeriod
+import com.quietlog.app.ui.Symptom
+import com.quietlog.app.ui.Trigger
 import com.quietlog.app.ui.buildStatsBuckets
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
@@ -36,25 +40,25 @@ class PdfReportGenerator @Inject constructor(
         period: StatsPeriod,
     ): File = withContext(Dispatchers.IO) {
         val document = PdfDocument()
-        val writer = PageWriter(document)
+        val writer = PageWriter(document, context)
 
-        writer.title("QuietLog — отчёт для врача")
-        writer.text("Период: ${period.label}")
+        writer.title(context.getString(R.string.pdf_title))
+        writer.text(context.getString(R.string.pdf_period, context.getString(period.labelRes)))
         writer.spacer()
 
         val avgIntensity = if (attacks.isEmpty()) 0.0 else attacks.map { it.intensity }.average()
-        writer.text("Всего приступов: ${attacks.size}")
-        writer.text("Средняя интенсивность: ${"%.1f".format(avgIntensity)}/10")
+        writer.text(context.getString(R.string.pdf_total_attacks, attacks.size))
+        writer.text(context.getString(R.string.pdf_avg_intensity, "%.1f".format(avgIntensity)))
         writer.spacer()
 
         val buckets = buildStatsBuckets(attacks, byMonth = period.bucketsByMonth)
         if (buckets.isNotEmpty()) {
-            writer.text("Частота приступов по периодам:", bold = true)
+            writer.text(context.getString(R.string.pdf_frequency_by_period), bold = true)
             writer.chart(buckets)
             writer.spacer()
         }
 
-        writer.text("Список приступов:", bold = true)
+        writer.text(context.getString(R.string.pdf_attack_list), bold = true)
         attacks.sortedByDescending { it.timestampStart }.forEach { attack ->
             writer.attackBlock(attack, medicationNamesByAttackId[attack.id].orEmpty())
         }
@@ -68,7 +72,7 @@ class PdfReportGenerator @Inject constructor(
         file
     }
 
-    private class PageWriter(private val document: PdfDocument) {
+    private class PageWriter(private val document: PdfDocument, private val context: Context) {
         private var page: PdfDocument.Page = newPage()
         private var canvas: Canvas = page.canvas
         private var y = MARGIN + LINE_HEIGHT
@@ -131,14 +135,26 @@ class PdfReportGenerator @Inject constructor(
             val timestamp = Instant.ofEpochMilli(attack.timestampStart)
                 .atZone(ZoneId.systemDefault())
                 .format(TIMESTAMP_FORMATTER)
-            text("$timestamp — интенсивность ${attack.intensity}/10", bold = true)
-            if (attack.locationZones.isNotEmpty()) text("Локализация: ${attack.locationZones.joinToString(", ")}")
-            if (attack.symptoms.isNotEmpty()) text("Симптомы: ${attack.symptoms.joinToString(", ")}")
-            if (attack.triggers.isNotEmpty()) text("Триггеры: ${attack.triggers.joinToString(", ")}")
-            if (medicationNames.isNotEmpty()) text("Медикаменты: ${medicationNames.joinToString(", ")}")
-            if (!attack.note.isNullOrBlank()) text("Заметка: ${attack.note}")
+            text(context.getString(R.string.pdf_attack_header, timestamp, attack.intensity), bold = true)
+            if (attack.locationZones.isNotEmpty()) {
+                text(context.getString(R.string.pdf_location, attack.locationZones.joinToString(", ") { key -> resolveLabel(key) }))
+            }
+            if (attack.symptoms.isNotEmpty()) {
+                text(context.getString(R.string.pdf_symptoms, attack.symptoms.joinToString(", ") { key -> resolveLabel(key) }))
+            }
+            if (attack.triggers.isNotEmpty()) {
+                text(context.getString(R.string.pdf_triggers, attack.triggers.joinToString(", ") { key -> resolveLabel(key) }))
+            }
+            if (medicationNames.isNotEmpty()) text(context.getString(R.string.pdf_medications, medicationNames.joinToString(", ")))
+            if (!attack.note.isNullOrBlank()) text(context.getString(R.string.pdf_note, attack.note))
             spacer()
         }
+
+        private fun resolveLabel(key: String): String =
+            LocationZone.fromKey(key)?.let { context.getString(it.labelRes) }
+                ?: Symptom.fromKey(key)?.let { context.getString(it.labelRes) }
+                ?: Trigger.fromKey(key)?.let { context.getString(it.labelRes) }
+                ?: key
 
         fun finish() {
             document.finishPage(page)

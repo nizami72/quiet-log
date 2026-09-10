@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -51,8 +52,8 @@ fun QuietLogApp(startupViewModel: AppStartupViewModel = hiltViewModel()) {
                                     restoreState = true
                                 }
                             },
-                            icon = { Icon(destination.icon, contentDescription = destination.label) },
-                            label = { Text(destination.label) },
+                            icon = { Icon(destination.icon, contentDescription = stringResource(destination.labelRes)) },
+                            label = { Text(stringResource(destination.labelRes)) },
                         )
                     }
                 }

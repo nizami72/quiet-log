@@ -16,33 +16,33 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.quietlog.app.R
 import kotlinx.coroutines.launch
 
-private data class OnboardingPage(val title: String, val description: String)
+private data class OnboardingPage(@StringRes val titleRes: Int, @StringRes val descriptionRes: Int)
 
 private val PAGES = listOf(
     OnboardingPage(
-        title = "Приступ за 2 тапа",
-        description = "«Приступ сейчас» → интенсивность — и запись уже сохранена. " +
-            "Остальные детали можно добавить позже, если будет время и силы.",
+        titleRes = R.string.onboarding_page1_title,
+        descriptionRes = R.string.onboarding_page1_description,
     ),
     OnboardingPage(
-        title = "Без рекламы. Совсем",
-        description = "Ни баннеров, ни interstitial — ни на бесплатном уровне, ни на платном. " +
-            "Это медицинский дневник, а не место для рекламы.",
+        titleRes = R.string.onboarding_page2_title,
+        descriptionRes = R.string.onboarding_page2_description,
     ),
     OnboardingPage(
-        title = "Погода — бесплатно, аккаунт — не обязателен",
-        description = "Погодная корреляция доступна с первого дня без подписки. " +
-            "Регистрация нужна только для синхронизации между устройствами — начать можно сразу.",
+        titleRes = R.string.onboarding_page3_title,
+        descriptionRes = R.string.onboarding_page3_description,
     ),
 )
 
@@ -63,7 +63,7 @@ fun OnboardingScreen(
             horizontalArrangement = Arrangement.End,
         ) {
             TextButton(onClick = { viewModel.completeOnboarding(onFinished) }) {
-                Text("Пропустить")
+                Text(stringResource(R.string.action_skip))
             }
         }
 
@@ -82,12 +82,12 @@ fun OnboardingScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Text(
-                    text = content.title,
+                    text = stringResource(content.titleRes),
                     style = MaterialTheme.typography.headlineLarge,
                     textAlign = TextAlign.Center,
                 )
                 Text(
-                    text = content.description,
+                    text = stringResource(content.descriptionRes),
                     style = MaterialTheme.typography.bodyLarge,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(top = 16.dp),
@@ -131,7 +131,7 @@ fun OnboardingScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 8.dp),
         ) {
-            Text(if (pagerState.currentPage == PAGES.lastIndex) "Начать" else "Далее")
+            Text(stringResource(if (pagerState.currentPage == PAGES.lastIndex) R.string.action_start else R.string.action_next))
         }
     }
 }

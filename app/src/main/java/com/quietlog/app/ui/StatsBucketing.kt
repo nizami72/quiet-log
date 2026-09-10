@@ -10,9 +10,8 @@ import java.time.temporal.TemporalAdjusters
 import java.util.Locale
 
 private val ZONE = ZoneId.systemDefault()
-private val RU = Locale("ru")
-private val WEEK_LABEL_FORMATTER = DateTimeFormatter.ofPattern("dd.MM", RU)
-private val MONTH_LABEL_FORMATTER = DateTimeFormatter.ofPattern("LLL yyyy", RU)
+private val WEEK_LABEL_FORMATTER = DateTimeFormatter.ofPattern("dd.MM", Locale.getDefault())
+private val MONTH_LABEL_FORMATTER = DateTimeFormatter.ofPattern("LLL yyyy", Locale.getDefault())
 
 /** Groups attacks by week (Monday-start) or by calendar month, sorted chronologically. */
 fun buildStatsBuckets(attacks: List<AttackEntity>, byMonth: Boolean): List<StatsBucket> {
