@@ -28,9 +28,30 @@ fun QuietLogNavHost(navController: NavHostController = rememberNavController()) 
             HomeScreen(onLogAttackClick = { navController.navigate(Destination.QuickLog.route) })
         }
 
-        composable(Destination.QuickLog.route) { QuickLogScreen() }
-        composable(Destination.LogDetails.route) { LogDetailsScreen() }
-        composable(Destination.History.route) { HistoryScreen() }
+        composable(Destination.QuickLog.route) {
+            QuickLogScreen(
+                onSaved = { attackId ->
+                    navController.navigate(Destination.LogDetails.createRoute(attackId)) {
+                        popUpTo(Destination.Home.route) { inclusive = false }
+                    }
+                },
+            )
+        }
+
+        composable(
+            route = Destination.LogDetails.route,
+            arguments = listOf(navArgument(Destination.LogDetails.ARG_ATTACK_ID) { type = NavType.LongType }),
+        ) {
+            LogDetailsScreen(onDone = { navController.popBackStack() })
+        }
+
+        composable(Destination.History.route) {
+            HistoryScreen(
+                onOpenAttack = { attackId ->
+                    navController.navigate(Destination.AttackRecord.createRoute(attackId))
+                },
+            )
+        }
 
         composable(
             route = Destination.AttackRecord.route,

@@ -4,7 +4,12 @@ sealed class Destination(val route: String) {
     data object Onboarding : Destination("onboarding")
     data object Home : Destination("home")
     data object QuickLog : Destination("quick_log")
-    data object LogDetails : Destination("log_details")
+
+    data object LogDetails : Destination("log_details/{attackId}") {
+        const val ARG_ATTACK_ID = "attackId"
+        fun createRoute(attackId: Long) = "log_details/$attackId"
+    }
+
     data object History : Destination("history")
 
     data object AttackRecord : Destination("attack_record/{attackId}") {
