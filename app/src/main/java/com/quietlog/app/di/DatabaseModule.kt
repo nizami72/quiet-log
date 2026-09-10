@@ -2,6 +2,7 @@ package com.quietlog.app.di
 
 import android.content.Context
 import androidx.room.Room
+import com.quietlog.app.data.local.DatabaseKeyProvider
 import com.quietlog.app.data.local.MIGRATION_1_2
 import com.quietlog.app.data.local.MIGRATION_2_3
 import com.quietlog.app.data.local.QuietLogDatabase
@@ -13,6 +14,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
+import net.sqlcipher.database.SupportFactory
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -20,10 +22,13 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(@ApplicationContext context: Context): QuietLogDatabase =
-        Room.databaseBuilder(context, QuietLogDatabase::class.java, "quietlog.db")
+    fun provideDatabase(@ApplicationContext context: Context): QuietLogDatabase {
+        val passphrase = DatabaseKeyProvider.getOrCreatePassphrase(context)
+        return Room.databaseBuilder(context, QuietLogDatabase::class.java, "quietlog.db")
+            .openHelperFactory(SupportFactory(passphrase))
             .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
             .build()
+    }
 
     @Provides
     fun provideAttackDao(database: QuietLogDatabase): AttackDao = database.attackDao()

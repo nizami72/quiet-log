@@ -70,6 +70,9 @@ dependencies {
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.billing.ktx)
 
+    implementation(libs.sqlcipher.android)
+    implementation(libs.androidx.security.crypto)
+
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
