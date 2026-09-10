@@ -32,9 +32,10 @@ class DebugDataSeeder @Inject constructor(
         "Paracetamol 500mg" to "2 tablets",
     )
 
-    suspend fun seedSampleData(monthsBack: Int = 2, attackCount: Int = 40) {
+    suspend fun seedSampleData(monthsBack: Int = 6, attackCount: Int = 100) {
+        val existingByName = medicationRepository.observeMedications().first().associateBy { it.name }
         val medicationIds = seedMedications.map { (name, dosage) ->
-            medicationRepository.saveMedication(
+            existingByName[name]?.id ?: medicationRepository.saveMedication(
                 MedicationEntity(name = name, dosage = dosage, createdAt = System.currentTimeMillis()),
             )
         }

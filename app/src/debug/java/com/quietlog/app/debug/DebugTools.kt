@@ -28,11 +28,11 @@ fun DebugToolsSection(modifier: Modifier = Modifier, viewModel: DebugToolsViewMo
         ) {
             Text("Debug tools", style = MaterialTheme.typography.titleMedium)
             Text(
-                "Debug builds only. Fills the last ~2 months with sample attacks to preview PDF export and Insights.",
+                "Debug builds only. Fills the last ~6 months with sample attacks to preview PDF export and Insights.",
                 style = MaterialTheme.typography.bodyMedium,
             )
             Button(onClick = viewModel::seedSampleData, enabled = !isBusy, modifier = Modifier.fillMaxWidth()) {
-                Text(if (isBusy) "Working…" else "Seed 2 months of test data")
+                Text(if (isBusy) "Working…" else "Seed 6 months of test data")
             }
             OutlinedButton(onClick = viewModel::clearSeedData, enabled = !isBusy, modifier = Modifier.fillMaxWidth()) {
                 Text("Clear test data")
