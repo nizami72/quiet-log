@@ -1,0 +1,33 @@
+*.iml
+.gradle
+local.properties
+.DS_Store
+build/
+/captures
+.externalNativeBuild
+.cxx
+*.apk
+*.aab
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# Android Studio
+.idea/*
+!.idea/codeStyles/
+!.idea/runConfigurations.xml
+.idea/caches
+.idea/libraries
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+
+# Gradle
+.gradle/
+gradle-app.setting
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+
+# Kotlin
+.kotlin/
