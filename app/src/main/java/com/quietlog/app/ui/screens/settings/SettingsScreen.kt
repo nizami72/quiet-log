@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.quietlog.app.R
+import com.quietlog.app.debug.DebugToolsSection
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -53,6 +54,8 @@ fun SettingsScreen(
                     .fillMaxWidth()
                     .clickable(onClick = onNavigateToPremium),
             )
+
+            DebugToolsSection()
         }
     }
 }
