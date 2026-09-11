@@ -152,6 +152,7 @@
     <!-- Settings -->
     <string name="settings_title">Settings</string>
     <string name="settings_item_pdf_report">Doctor\'s report</string>
+    <string name="settings_item_privacy_policy">Privacy Policy</string>
 
     <!-- PDF report content -->
     <string name="pdf_title">QuietLog — report for your doctor</string>
