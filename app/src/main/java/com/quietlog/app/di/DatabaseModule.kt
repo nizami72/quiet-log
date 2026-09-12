@@ -20,6 +20,12 @@ import net.zetetic.database.sqlcipher.SupportOpenHelperFactory
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
 
+    init {
+        // sqlcipher-android does not auto-load its native library; this must happen once,
+        // before any SupportOpenHelperFactory is used to open the database.
+        System.loadLibrary("sqlcipher")
+    }
+
     @Provides
     @Singleton
     fun provideDatabase(@ApplicationContext context: Context): QuietLogDatabase {
