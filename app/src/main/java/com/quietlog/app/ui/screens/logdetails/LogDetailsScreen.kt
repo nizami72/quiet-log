@@ -1,5 +1,6 @@
 package com.quietlog.app.ui.screens.logdetails
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -36,6 +37,10 @@ fun LogDetailsScreen(
     viewModel: LogDetailsViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsState()
+
+    // The system back gesture/button bypasses the Done/Skip button handlers below and used to
+    // silently discard whatever was typed — save on the way out instead, same as tapping Done.
+    BackHandler(onBack = { viewModel.save(onDone) })
 
     Scaffold(
         modifier = modifier,

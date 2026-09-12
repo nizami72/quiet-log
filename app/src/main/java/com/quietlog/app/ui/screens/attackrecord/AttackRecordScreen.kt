@@ -1,5 +1,6 @@
 package com.quietlog.app.ui.screens.attackrecord
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -53,6 +54,10 @@ fun AttackRecordScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     var showDeleteConfirm by remember { mutableStateOf(false) }
+
+    // The system back gesture/button bypasses the Save button below and used to silently
+    // discard any edits — save on the way out instead, same as tapping Save.
+    BackHandler(onBack = { viewModel.save(onSaved) })
 
     val title = uiState.timestampStart?.let {
         Instant.ofEpochMilli(it).atZone(ZoneId.systemDefault()).format(TIMESTAMP_FORMATTER)
