@@ -14,7 +14,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
-import net.sqlcipher.database.SupportFactory
+import net.zetetic.database.sqlcipher.SupportOpenHelperFactory
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -25,7 +25,7 @@ object DatabaseModule {
     fun provideDatabase(@ApplicationContext context: Context): QuietLogDatabase {
         val passphrase = DatabaseKeyProvider.getOrCreatePassphrase(context)
         return Room.databaseBuilder(context, QuietLogDatabase::class.java, "quietlog.db")
-            .openHelperFactory(SupportFactory(passphrase))
+            .openHelperFactory(SupportOpenHelperFactory(passphrase))
             .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
             .build()
     }

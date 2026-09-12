@@ -10,6 +10,16 @@
       EncryptedSharedPreferences (Keystore). Проверено на устройстве: файл БД больше
       не открывается как обычный SQLite, ключ переживает перезапуск процесса.
 
+      **Постфактум (после первого релиза в Internal Testing):** приложение крашилось
+      на старте на Motorola Edge 60 Pro (Android 16) — `SIGABRT` в `libsqlcipher.so`
+      при `JNI_OnLoad`. Причина: `net.zetetic:android-database-sqlcipher:4.5.4`
+      (последняя версия этой линии) собрана с ELF LOAD-сегментами по 4KB, а новые
+      устройства требуют выравнивание 16KB. Библиотека замене на её поддерживаемого
+      преемника `net.zetetic:sqlcipher-android:4.17.0` (пакет классов сменился на
+      `net.zetetic.database.sqlcipher`, `SupportFactory` → `SupportOpenHelperFactory`),
+      проверено через `readelf -lW` — сегменты теперь по 16KB (`0x4000`), и вживую на
+      Motorola — приложение стартует без крашей.
+
 - [x] **2. Политика конфиденциальности.** Текст составлен (`PRIVACY_POLICY.md`),
       опубликован на Google Sites, ссылка добавлена в Settings (открывается во
       внешнем браузере). Осталось вставить тот же URL в Google Play Console →
