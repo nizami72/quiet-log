@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">QuietLog</string>
+    <string name="app_name">Quiet Log</string>
 
     <!-- Common actions -->
     <string name="action_save">Save</string>
@@ -124,14 +124,14 @@
     <!-- PDF report screen -->
     <string name="pdfreport_title">PDF report for your doctor</string>
     <string name="pdfreport_share_chooser_title">Share report</string>
-    <string name="pdfreport_premium_required">The PDF report for your doctor is available in QuietLog Premium</string>
+    <string name="pdfreport_premium_required">The PDF report for your doctor is available in Quiet Log Premium</string>
     <string name="pdfreport_open_premium">Open Premium</string>
     <string name="pdfreport_description">The report includes your attack list, intensity, symptoms, triggers, medications, and a chart for the selected period. Generated locally on your device.</string>
     <string name="pdfreport_generating">Generating…</string>
     <string name="pdfreport_generate_share">Generate and share</string>
 
     <!-- Premium screen -->
-    <string name="premium_brand_title">QuietLog Premium</string>
+    <string name="premium_brand_title">Quiet Log Premium</string>
     <string name="premium_one_time_purchase_intro">One-time purchase, no subscription. Includes:</string>
     <string name="premium_already_purchased">Already purchased</string>
     <string name="premium_unavailable">Purchases are temporarily unavailable. Check that Google Play is available on this device.</string>
@@ -155,7 +155,7 @@
     <string name="settings_item_privacy_policy">Privacy Policy</string>
 
     <!-- PDF report content -->
-    <string name="pdf_title">QuietLog — report for your doctor</string>
+    <string name="pdf_title">Quiet Log — report for your doctor</string>
     <string name="pdf_period">Period: %1$s</string>
     <string name="pdf_total_attacks">Total attacks: %1$d</string>
     <string name="pdf_avg_intensity">Average intensity: %1$s/10</string>

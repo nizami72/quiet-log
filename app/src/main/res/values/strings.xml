@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">QuietLog</string>
+    <string name="app_name">Quiet Log</string>
 
     <!-- Common actions -->
     <string name="action_save">Сохранить</string>
@@ -124,14 +124,14 @@
     <!-- PDF report screen -->
     <string name="pdfreport_title">PDF-отчёт для врача</string>
     <string name="pdfreport_share_chooser_title">Поделиться отчётом</string>
-    <string name="pdfreport_premium_required">PDF-отчёт для врача доступен в QuietLog Premium</string>
+    <string name="pdfreport_premium_required">PDF-отчёт для врача доступен в Quiet Log Premium</string>
     <string name="pdfreport_open_premium">Открыть Premium</string>
     <string name="pdfreport_description">Отчёт включает список приступов, интенсивность, симптомы, триггеры, медикаменты и график за выбранный период. Генерируется локально на устройстве.</string>
     <string name="pdfreport_generating">Генерация…</string>
     <string name="pdfreport_generate_share">Сгенерировать и поделиться</string>
 
     <!-- Premium screen -->
-    <string name="premium_brand_title">QuietLog Premium</string>
+    <string name="premium_brand_title">Quiet Log Premium</string>
     <string name="premium_one_time_purchase_intro">Разовая покупка, без подписки. Входит:</string>
     <string name="premium_already_purchased">Уже куплено</string>
     <string name="premium_unavailable">Покупка временно недоступна. Проверьте, что Google Play доступен на устройстве.</string>
@@ -155,7 +155,7 @@
     <string name="settings_item_privacy_policy">Политика конфиденциальности</string>
 
     <!-- PDF report content -->
-    <string name="pdf_title">QuietLog — отчёт для врача</string>
+    <string name="pdf_title">Quiet Log — отчёт для врача</string>
     <string name="pdf_period">Период: %1$s</string>
     <string name="pdf_total_attacks">Всего приступов: %1$d</string>
     <string name="pdf_avg_intensity">Средняя интенсивность: %1$s/10</string>
