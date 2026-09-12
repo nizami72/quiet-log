@@ -8,6 +8,9 @@ build/
 .cxx
 *.apk
 *.aab
+*.jks
+*.keystore
+keystore.properties
 
 # Claude Code local settings
 .claude/settings.local.json
