@@ -4,8 +4,11 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -57,14 +60,20 @@ fun InsightsScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(20.dp),
         ) {
-            SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
+            SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min)) {
                 StatsPeriod.entries.forEachIndexed { index, period ->
                     SegmentedButton(
                         selected = uiState.period == period,
                         onClick = { viewModel.selectPeriod(period) },
                         shape = SegmentedButtonDefaults.itemShape(index, StatsPeriod.entries.size),
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxHeight(),
                     ) {
-                        Text(stringResource(period.labelRes))
+                        Text(
+                            stringResource(period.labelRes),
+                            style = MaterialTheme.typography.labelMedium,
+                        )
                     }
                 }
             }

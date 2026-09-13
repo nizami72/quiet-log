@@ -3,8 +3,11 @@ package com.quietlog.app.ui.screens.history
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -52,6 +55,7 @@ fun HistoryScreen(
             SingleChoiceSegmentedButtonRow(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .height(IntrinsicSize.Min)
                     .padding(16.dp),
             ) {
                 StatsPeriod.entries.forEachIndexed { index, period ->
@@ -59,8 +63,14 @@ fun HistoryScreen(
                         selected = uiState.period == period,
                         onClick = { viewModel.selectPeriod(period) },
                         shape = SegmentedButtonDefaults.itemShape(index, StatsPeriod.entries.size),
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxHeight(),
                     ) {
-                        Text(stringResource(period.labelRes))
+                        Text(
+                            stringResource(period.labelRes),
+                            style = MaterialTheme.typography.labelMedium,
+                        )
                     }
                 }
             }
